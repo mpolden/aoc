@@ -10,6 +10,7 @@ fn main() -> Result<(), std::io::Error> {
     }
     let file = &args[1];
     match file.as_str() {
+        // Day 1: Report Repair
         "input/day01.txt" => {
             let input = read_to_string(file)?;
             let numbers = day01::parse_numbers(input.lines());
