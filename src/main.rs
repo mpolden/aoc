@@ -22,8 +22,10 @@ fn main() -> Result<(), std::io::Error> {
         // Day 2: Password Philosophy
         "input/day02.txt" => {
             let input = read_to_string(file)?;
-            let answer = day02::solve(input.lines());
-            println!("day 2 answer: {}", answer);
+            let a = day02::solve_a(input.lines());
+            let b = day02::solve_b(input.lines());
+            println!("day 2 answer a: {}", a);
+            println!("      answer b: {}", b);
         }
         _ => {
             eprintln!("no solution implemented for file {}", file);

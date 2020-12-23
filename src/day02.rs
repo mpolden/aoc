@@ -1,6 +1,6 @@
 use std::str::Lines;
 
-fn parse_policy(s: &str) -> Option<(i32, i32, char)> {
+fn parse_policy(s: &str) -> Option<(usize, usize, char)> {
     let parts: Vec<&str> = s.split(" ").collect();
     if parts.len() < 2 {
         return None;
@@ -11,15 +11,15 @@ fn parse_policy(s: &str) -> Option<(i32, i32, char)> {
         return None;
     }
     let min = range_parts[0]
-        .parse::<i32>()
+        .parse::<usize>()
         .expect("failed to parse number");
     let max = range_parts[1]
-        .parse::<i32>()
+        .parse::<usize>()
         .expect("failed to parse number");
     return Some((min, max, chr));
 }
 
-pub fn solve(lines: Lines) -> i32 {
+pub fn solve_a(lines: Lines) -> i32 {
     let mut matching_passwords = 0;
     for line in lines {
         let parts: Vec<&str> = line.split(": ").collect();
@@ -29,7 +29,28 @@ pub fn solve(lines: Lines) -> i32 {
         let (min, max, chr) = parse_policy(parts[0]).unwrap();
         let password = parts[1];
         let matches = password.matches(chr).count();
-        if matches >= min as usize && matches <= max as usize {
+        if matches >= min && matches <= max {
+            matching_passwords += 1;
+        }
+    }
+    return matching_passwords;
+}
+
+pub fn solve_b(lines: Lines) -> i32 {
+    let mut matching_passwords = 0;
+    for line in lines {
+        let parts: Vec<&str> = line.split(": ").collect();
+        if parts.len() != 2 {
+            panic!("invalid line {}", line);
+        }
+        let (min, max, chr) = parse_policy(parts[0]).unwrap();
+        let password = parts[1];
+        let min_char = password.chars().nth(min - 1);
+        let max_char = password.chars().nth(max - 1);
+        if min_char == Some(chr) && max_char != Some(chr) {
+            matching_passwords += 1;
+        }
+        if max_char == Some(chr) && min_char != Some(chr) {
             matching_passwords += 1;
         }
     }
@@ -44,8 +65,14 @@ mod tests {
     }
 
     #[test]
-    fn solve() {
+    fn solve_a() {
         let passwords = "1-3 a: abcde\n1-3 b: cdefg\n2-9 c: ccccccccc";
-        assert_eq!(2, super::solve(passwords.lines()));
+        assert_eq!(2, super::solve_a(passwords.lines()));
+    }
+
+    #[test]
+    fn solve_b() {
+        let passwords = "1-3 a: abcde\n1-3 b: cdefg\n2-9 c: ccccccccc";
+        assert_eq!(1, super::solve_b(passwords.lines()));
     }
 }
