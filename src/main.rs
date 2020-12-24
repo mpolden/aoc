@@ -31,7 +31,9 @@ fn main() -> Result<(), std::io::Error> {
         "input/day03.txt" => {
             let input = read_to_string(file)?;
             let a = day03::solve_a(input.lines());
+            let b = day03::solve_b(input.lines());
             println!("day 3 answer a: {}", a);
+            println!("      answer b: {}", b);
         }
         _ => {
             eprintln!("no solution implemented for file {}", file);
