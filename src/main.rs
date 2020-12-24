@@ -1,4 +1,4 @@
-use aoc::{day01, day02, day03};
+use aoc::{day01, day02, day03, day04};
 use std::env;
 use std::fs::read_to_string;
 
@@ -34,6 +34,12 @@ fn main() -> Result<(), std::io::Error> {
             let b = day03::solve_b(input.lines());
             println!("day 3 answer a: {}", a);
             println!("      answer b: {}", b);
+        }
+        // Day 4: Passport Processing
+        "input/day04.txt" => {
+            let input = read_to_string(file)?;
+            let a = day04::solve_a(&input);
+            println!("day 4 answer a: {}", a);
         }
         _ => {
             eprintln!("no solution implemented for file {}", file);
