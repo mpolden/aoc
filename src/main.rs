@@ -1,4 +1,4 @@
-use aoc::{day01, day02};
+use aoc::{day01, day02, day03};
 use std::env;
 use std::fs::read_to_string;
 
@@ -26,6 +26,12 @@ fn main() -> Result<(), std::io::Error> {
             let b = day02::solve_b(input.lines());
             println!("day 2 answer a: {}", a);
             println!("      answer b: {}", b);
+        }
+        // Day 3: Toboggan Trajectory
+        "input/day03.txt" => {
+            let input = read_to_string(file)?;
+            let a = day03::solve_a(input.lines());
+            println!("day 3 answer a: {}", a);
         }
         _ => {
             eprintln!("no solution implemented for file {}", file);
