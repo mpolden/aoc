@@ -1,4 +1,4 @@
-use aoc::{day01, day02, day03, day04};
+use aoc::{day01, day02, day03, day04, day05};
 use std::env;
 use std::fs::read_to_string;
 
@@ -42,6 +42,12 @@ fn main() -> Result<(), std::io::Error> {
             let b = day04::solve_b(&input);
             println!("day 4 answer a: {}", a);
             println!("      answer b: {}", b);
+        }
+        // Day 5: Binary Boarding
+        "input/day05.txt" => {
+            let input = read_to_string(file)?;
+            let a = day05::solve_a(input.lines());
+            println!("day 5 answer a: {}", a);
         }
         _ => {
             eprintln!("no solution implemented for file {}", file);
