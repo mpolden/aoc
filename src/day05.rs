@@ -98,7 +98,7 @@ mod tests {
     use super::BoardingId;
 
     #[test]
-    fn solve_a() {
+    fn example_a() {
         {
             let id = BoardingId::from_str("FBFBBFFRLR").unwrap();
             assert_eq!(44, id.row);

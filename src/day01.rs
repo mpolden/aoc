@@ -40,13 +40,13 @@ fn solve(numbers: &Vec<i32>, b: bool) -> i32 {
 #[cfg(test)]
 mod tests {
     #[test]
-    fn solve_a() {
+    fn example_a() {
         let numbers = vec![1721, 979, 366, 299, 675];
         assert_eq!(514_579, super::solve_a(&numbers));
     }
 
     #[test]
-    fn solve_b() {
+    fn example_b() {
         let numbers = vec![1721, 979, 366, 299, 675];
         assert_eq!(241_861_950, super::solve_b(&numbers));
     }

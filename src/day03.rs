@@ -53,12 +53,12 @@ mod tests {
                        .#..#...#.#.#..#...#.#.#..#...#.#.#..#...#.#.#..#...#.#.#..#...#.#  --->";
 
     #[test]
-    fn solve_a() {
+    fn example_a() {
         assert_eq!(7, super::solve_a(MAP.lines()));
     }
 
     #[test]
-    fn solve_b() {
+    fn example_b() {
         assert_eq!(336, super::solve_b(MAP.lines()));
     }
 }

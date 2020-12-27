@@ -99,7 +99,7 @@ fn validate(field: &str, value: &str) -> bool {
 mod tests {
 
     #[test]
-    fn solve_a() {
+    fn example_a() {
         let passports = "ecl:gry pid:860033327 eyr:2020 hcl:#fffffd\n\
                              byr:1937 iyr:2017 cid:147 hgt:183cm\n\
                              \n\
@@ -117,7 +117,7 @@ mod tests {
     }
 
     #[test]
-    fn solve_b() {
+    fn example_b() {
         let passports = "eyr:1972 cid:100\n\
                          hcl:#18171d ecl:amb hgt:170 pid:186cm iyr:2018 byr:1926\n\
                          \n\

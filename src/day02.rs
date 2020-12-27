@@ -65,13 +65,13 @@ mod tests {
     }
 
     #[test]
-    fn solve_a() {
+    fn example_a() {
         let passwords = "1-3 a: abcde\n1-3 b: cdefg\n2-9 c: ccccccccc";
         assert_eq!(2, super::solve_a(passwords.lines()));
     }
 
     #[test]
-    fn solve_b() {
+    fn example_b() {
         let passwords = "1-3 a: abcde\n1-3 b: cdefg\n2-9 c: ccccccccc";
         assert_eq!(1, super::solve_b(passwords.lines()));
     }
