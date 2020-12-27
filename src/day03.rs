@@ -2,7 +2,7 @@ use std::str::Lines;
 
 pub fn solve_a(lines: Lines) -> usize {
     let lines: Vec<&str> = lines.collect();
-    return solve(&lines, 3, 1);
+    solve(&lines, 3, 1)
 }
 
 pub fn solve_b(lines: Lines) -> usize {
@@ -15,7 +15,7 @@ pub fn solve_b(lines: Lines) -> usize {
     answer
 }
 
-fn solve(lines: &Vec<&str>, right: usize, down: usize) -> usize {
+fn solve(lines: &[&str], right: usize, down: usize) -> usize {
     let mut trees = 0;
     let mut x = right;
     let lines = lines
@@ -35,7 +35,7 @@ fn solve(lines: &Vec<&str>, right: usize, down: usize) -> usize {
             x -= line.len();
         }
     }
-    return trees;
+    trees
 }
 
 #[cfg(test)]

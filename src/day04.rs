@@ -17,9 +17,9 @@ fn solve(passports: &str, validate_value: bool) -> i32 {
     for line in passports.split("\n\n") {
         let joined_line = line.replace("\n", " ");
         let field_values: HashMap<&str, &str> = joined_line
-            .split(" ")
+            .split(' ')
             .map(|s| {
-                let parts: Vec<&str> = s.split(":").collect();
+                let parts: Vec<&str> = s.split(':').collect();
                 if parts.len() < 2 {
                     return None;
                 }
@@ -72,7 +72,7 @@ fn validate(field: &str, value: &str) -> bool {
             false
         }
         "hcl" => {
-            if !value.starts_with("#") || value.len() != 7 {
+            if !value.starts_with('#') || value.len() != 7 {
                 return false;
             }
             value
@@ -80,10 +80,9 @@ fn validate(field: &str, value: &str) -> bool {
                 .skip(1)
                 .all(|c| (c >= '0' && c <= '9') || (c >= 'a' && c <= 'f'))
         }
-        "ecl" => match value {
-            "amb" | "blu" | "brn" | "gry" | "grn" | "hzl" | "oth" => true,
-            _ => false,
-        },
+        "ecl" => {
+            matches!(value, "amb" | "blu" | "brn" | "gry" | "grn" | "hzl" | "oth")
+        }
         "pid" => {
             if value.len() != 9 {
                 return false;

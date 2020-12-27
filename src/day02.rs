@@ -1,12 +1,12 @@
 use std::str::Lines;
 
 fn parse_policy(s: &str) -> Option<(usize, usize, char)> {
-    let parts: Vec<&str> = s.split(" ").collect();
+    let parts: Vec<&str> = s.split(' ').collect();
     if parts.len() < 2 {
         return None;
     }
     let chr = parts[1].chars().next().unwrap();
-    let range_parts: Vec<&str> = parts[0].split("-").collect();
+    let range_parts: Vec<&str> = parts[0].split('-').collect();
     if range_parts.len() < 2 {
         return None;
     }
@@ -16,7 +16,7 @@ fn parse_policy(s: &str) -> Option<(usize, usize, char)> {
     let max = range_parts[1]
         .parse::<usize>()
         .expect("failed to parse number");
-    return Some((min, max, chr));
+    Some((min, max, chr))
 }
 
 pub fn solve_a(lines: Lines) -> i32 {
@@ -33,7 +33,7 @@ pub fn solve_a(lines: Lines) -> i32 {
             matching_passwords += 1;
         }
     }
-    return matching_passwords;
+    matching_passwords
 }
 
 pub fn solve_b(lines: Lines) -> i32 {
@@ -54,7 +54,7 @@ pub fn solve_b(lines: Lines) -> i32 {
             matching_passwords += 1;
         }
     }
-    return matching_passwords;
+    matching_passwords
 }
 
 #[cfg(test)]
