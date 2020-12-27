@@ -74,6 +74,24 @@ pub fn solve_a(lines: Lines) -> usize {
         .unwrap()
 }
 
+pub fn solve_b(lines: Lines) -> Option<usize> {
+    let mut seat_ids: Vec<usize> = lines
+        .map(|s| BoardingId::from_str(s).unwrap().seat_id())
+        .collect();
+    seat_ids.sort();
+    for (i, seat_id) in seat_ids.iter().enumerate() {
+        let j = i + 1;
+        if j >= seat_ids.len() {
+            continue;
+        }
+        let next_seat_id = seat_ids[j];
+        if seat_id + 2 == next_seat_id {
+            return Some(seat_id + 1);
+        }
+    }
+    return None;
+}
+
 #[cfg(test)]
 mod tests {
 
