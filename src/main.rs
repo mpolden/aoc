@@ -8,7 +8,10 @@ fn main() -> Result<(), std::io::Error> {
         println!("usage: {} <input-file>", &args[0]);
         std::process::exit(1);
     }
-    let file = &args[1];
+    let mut file = args[1].to_string();
+    if file.len() == 2 {
+        file = format!("input/day{}.txt", file);
+    }
     match file.as_str() {
         // Day 1: Report Repair
         "input/day01.txt" => {
