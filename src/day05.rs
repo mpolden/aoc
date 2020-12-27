@@ -99,29 +99,24 @@ mod tests {
 
     #[test]
     fn example_a() {
-        {
-            let id = BoardingId::from_str("FBFBBFFRLR").unwrap();
-            assert_eq!(44, id.row);
-            assert_eq!(5, id.column);
-            assert_eq!(357, id.seat_id());
-        }
-        {
-            let id = BoardingId::from_str("BFFFBBFRRR").unwrap();
-            assert_eq!(70, id.row);
-            assert_eq!(7, id.column);
-            assert_eq!(567, id.seat_id());
-        }
-        {
-            let id = BoardingId::from_str("FFFBBBFRRR").unwrap();
-            assert_eq!(14, id.row);
-            assert_eq!(7, id.column);
-            assert_eq!(119, id.seat_id());
-        }
-        {
-            let id = BoardingId::from_str("BBFFBBFRLL").unwrap();
-            assert_eq!(102, id.row);
-            assert_eq!(4, id.column);
-            assert_eq!(820, id.seat_id());
-        }
+        let id = BoardingId::from_str("FBFBBFFRLR").unwrap();
+        assert_eq!(44, id.row);
+        assert_eq!(5, id.column);
+        assert_eq!(357, id.seat_id());
+
+        let id = BoardingId::from_str("BFFFBBFRRR").unwrap();
+        assert_eq!(70, id.row);
+        assert_eq!(7, id.column);
+        assert_eq!(567, id.seat_id());
+
+        let id = BoardingId::from_str("FFFBBBFRRR").unwrap();
+        assert_eq!(14, id.row);
+        assert_eq!(7, id.column);
+        assert_eq!(119, id.seat_id());
+
+        let id = BoardingId::from_str("BBFFBBFRLL").unwrap();
+        assert_eq!(102, id.row);
+        assert_eq!(4, id.column);
+        assert_eq!(820, id.seat_id());
     }
 }
