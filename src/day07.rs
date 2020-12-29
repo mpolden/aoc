@@ -52,13 +52,12 @@ fn bag_count(bags: &HashMap<String, Vec<Bag>>, color: &str, wanted_color: &str) 
     let sub_bags = bags.get(color);
     if sub_bags.is_none() {
         return count;
-    } else {
-        for bag in sub_bags.unwrap() {
-            if bag.color == wanted_color {
-                count += 1;
-            }
-            count += bag_count(bags, &bag.color, wanted_color);
+    }
+    for bag in sub_bags.unwrap() {
+        if bag.color == wanted_color {
+            count += 1;
         }
+        count += bag_count(bags, &bag.color, wanted_color);
     }
     count
 }
@@ -69,6 +68,24 @@ pub fn solve_a(lines: Lines) -> usize {
         .map(|color| bag_count(&bags, color, "shiny gold"))
         .filter(|count| *count > 0)
         .count()
+}
+
+fn bag_count2(bags: &HashMap<String, Vec<Bag>>, color: &str) -> usize {
+    let mut count = 0;
+    let sub_bags = bags.get(color);
+    if sub_bags.is_none() {
+        return count;
+    }
+    for bag in sub_bags.unwrap() {
+        count += bag.count;
+        count += bag_count2(bags, &bag.color) * bag.count;
+    }
+    count
+}
+
+pub fn solve_b(lines: Lines) -> usize {
+    let bags = parse_bags(lines);
+    bag_count2(&bags, "shiny gold")
 }
 
 #[cfg(test)]
@@ -86,5 +103,18 @@ mod tests {
                      dotted black bags contain no other bags.\n\
                      ";
         assert_eq!(4, super::solve_a(rules.lines()));
+    }
+
+    #[test]
+    fn example_b() {
+        let rules = "shiny gold bags contain 2 dark red bags.\n\
+                     dark red bags contain 2 dark orange bags.\n\
+                     dark orange bags contain 2 dark yellow bags.\n\
+                     dark yellow bags contain 2 dark green bags.\n\
+                     dark green bags contain 2 dark blue bags.\n\
+                     dark blue bags contain 2 dark violet bags.\n\
+                     dark violet bags contain no other bags.\n\
+                     ";
+        assert_eq!(126, super::solve_b(rules.lines()));
     }
 }
