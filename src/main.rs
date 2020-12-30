@@ -1,4 +1,4 @@
-use aoc::{day01, day02, day03, day04, day05, day06, day07, day08};
+use aoc::{day01, day02, day03, day04, day05, day06, day07, day08, day09};
 use std::env;
 use std::fs::read_to_string;
 
@@ -77,6 +77,12 @@ fn main() -> Result<(), std::io::Error> {
             let b = day08::solve_b(input.lines()).unwrap();
             println!("day 8 answer a: {}", a);
             println!("      answer b: {}", b);
+        }
+        // Day 9: Encoding Error
+        "input/day09.txt" => {
+            let input = read_to_string(file)?;
+            let a = day09::solve_a(input.lines(), 25).unwrap();
+            println!("day 9 answer a: {}", a);
         }
         _ => {
             eprintln!("no solution implemented for file {}", file);
