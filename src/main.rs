@@ -82,7 +82,9 @@ fn main() -> Result<(), std::io::Error> {
         "input/day09.txt" => {
             let input = read_to_string(file)?;
             let a = day09::solve_a(input.lines(), 25).unwrap();
+            let b = day09::solve_b(input.lines(), a).unwrap();
             println!("day 9 answer a: {}", a);
+            println!("      answer b: {}", b);
         }
         _ => {
             eprintln!("no solution implemented for file {}", file);

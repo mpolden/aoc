@@ -31,11 +31,29 @@ pub fn solve_a(lines: Lines, preamble_size: usize) -> Option<i64> {
     None
 }
 
+pub fn solve_b(lines: Lines, invalid_number: i64) -> Option<i64> {
+    let mut sequence: VecDeque<i64> = VecDeque::new();
+    for line in lines {
+        let n = line.parse::<i64>().unwrap();
+        let mut sum = sequence.iter().sum::<i64>();
+        while sum > invalid_number {
+            sequence.pop_front();
+            sum = sequence.iter().sum::<i64>();
+        }
+        if sum == invalid_number {
+            let min = sequence.iter().min().unwrap();
+            let max = sequence.iter().max().unwrap();
+            return Some(min + max);
+        }
+        sequence.push_back(n);
+    }
+    None
+}
+
 #[cfg(test)]
 mod tests {
-    #[test]
-    fn example_a() {
-        let input = r"35
+
+    const INPUT: &str = r"35
 20
 15
 25
@@ -55,6 +73,14 @@ mod tests {
 277
 309
 576";
-        assert_eq!(127, super::solve_a(input.lines(), 5).unwrap());
+
+    #[test]
+    fn example_a() {
+        assert_eq!(127, super::solve_a(INPUT.lines(), 5).unwrap());
+    }
+
+    #[test]
+    fn example_b() {
+        assert_eq!(62, super::solve_b(INPUT.lines(), 127).unwrap())
     }
 }
