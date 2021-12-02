@@ -13,15 +13,13 @@ forward 2
 
 def parse_cmd(data):
     direction, value = data.split(" ")
-    value = int(value)
-    return direction, value
+    return direction, int(value)
 
 
 def day2_1(cmds):
     hpos = 0
     depth = 0
-    for cmd in cmds:
-        direction, value = cmd
+    for direction, value in cmds:
         if direction == "forward":
             hpos += value
         elif direction == "down":
@@ -39,8 +37,7 @@ def day2_2(cmds):
     hpos = 0
     depth = 0
     aim = 0
-    for cmd in cmds:
-        direction, value = cmd
+    for direction, value in cmds:
         if direction == "forward":
             hpos += value
             depth += aim * value
