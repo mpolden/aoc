@@ -1,4 +1,4 @@
-days = day01.py
+days = $(wildcard day*.py)
 
 .PHONY: $(days)
 
