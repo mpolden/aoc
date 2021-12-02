@@ -1,0 +1,12 @@
+# aoc
+
+Solutions to a few [[https://adventofcode.com/][Advent of Code]] puzzles.
+
+I usually get bored or time-constrained long before I can collect all stars.
+However, starting and subsequently failing to complete Advent of Code has become
+a yearly tradition.
+
+| Year | Stars | Language |
+|------+-------+----------|
+| 2020 |    19 | Rust     |
+| 2018 |     6 | Python   |
