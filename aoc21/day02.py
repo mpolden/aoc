@@ -1,5 +1,6 @@
-from util import read_input, parse_input
+"""Day 2: Dive!"""
 
+from util import read_input, parse_input
 
 example_input = """
 forward 5

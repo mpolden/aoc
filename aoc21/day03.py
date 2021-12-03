@@ -1,3 +1,5 @@
+"""Day 3: Binary Diagnostic"""
+
 from collections import Counter
 from util import read_input, parse_input
 

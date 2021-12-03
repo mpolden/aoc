@@ -1,5 +1,6 @@
-from util import read_input, parse_input
+"""Day 1: Sonar Sweep"""
 
+from util import read_input, parse_input
 
 example_input = """
 199
