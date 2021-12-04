@@ -1,5 +1,6 @@
 """Day 1: Sonar Sweep"""
 
+from typing import List
 from util import file_input, text_input
 
 example_input = """
@@ -16,7 +17,7 @@ example_input = """
 """
 
 
-def day1_1(reports):
+def day1_1(reports: List[int]) -> int:
     prev = reports[0]
     inc = 0
     for report in reports[1:]:
@@ -30,7 +31,7 @@ assert day1_1(text_input(example_input, parser=int)) == 7
 assert day1_1(file_input(1, parser=int)) == 1462
 
 
-def day1_2(reports):
+def day1_2(reports: List[int]) -> int:
     window_size = 3
     prev = 0
     inc = 0

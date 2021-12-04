@@ -1,5 +1,6 @@
 """Day 2: Dive!"""
 
+from typing import List, Tuple
 from util import file_input, text_input
 
 example_input = """
@@ -11,13 +12,15 @@ down 8
 forward 2
 """
 
+Cmd = Tuple[str, int]
 
-def parse_cmd(data):
-    direction, value = data.split(" ")
+
+def parse_cmd(text: str) -> Cmd:
+    direction, value = text.split(" ")
     return direction, int(value)
 
 
-def day2_1(cmds):
+def day2_1(cmds: List[Cmd]) -> int:
     hpos = 0
     depth = 0
     for direction, value in cmds:
@@ -34,7 +37,7 @@ assert day2_1(text_input(example_input, parser=parse_cmd)) == 150
 assert day2_1(file_input(2, parser=parse_cmd)) == 2039912
 
 
-def day2_2(cmds):
+def day2_2(cmds: List[Cmd]) -> int:
     hpos = 0
     depth = 0
     aim = 0
