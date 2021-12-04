@@ -26,6 +26,7 @@ example_input = """
 """
 
 Board = List[List[int]]
+Game = Tuple[List[int], List[Board]]
 
 
 def parse_board(lines: List[str]) -> Board:
@@ -39,7 +40,7 @@ def parse_boards(lines: List[str], board_height: int = 5) -> List[Board]:
     ]
 
 
-def nums_and_boards(lines: List[str]) -> Tuple[List[int], List[Board]]:
+def parse_game(lines: List[str]) -> Game:
     nums = split(lines[0], parser=int, sep=",")
     boards = parse_boards(lines)
     return nums, boards
@@ -60,15 +61,14 @@ def score(board: Board, drawn: List[int]) -> int:
     return sum((n for row in board for n in row if n not in drawn)) * last_drawn
 
 
-def winning_score(boards: List[Board], nums: List[int], last: bool = False) -> int:
+def winning_score(game: Game, last: bool = False) -> int:
     drawn = []
     winners = []
+    nums, boards = game
     for n in nums:
         drawn.append(n)
         for i, board in enumerate(boards):
-            if not is_winner(board, set(drawn)):
-                continue
-            if i in winners:
+            if i in winners or not is_winner(board, set(drawn)):
                 continue
             winners.append(i)
             if not last or len(winners) == len(boards):
@@ -77,8 +77,7 @@ def winning_score(boards: List[Board], nums: List[int], last: bool = False) -> i
 
 
 def day4_1(lines: List[str]) -> int:
-    nums, boards = nums_and_boards(lines)
-    return winning_score(boards, nums)
+    return winning_score(parse_game(lines))
 
 
 assert day4_1(text_input(example_input)) == 4512
@@ -86,8 +85,7 @@ assert day4_1(file_input(4)) == 33348
 
 
 def day4_2(lines: List[str]) -> int:
-    nums, boards = nums_and_boards(lines)
-    return winning_score(boards, nums, last=True)
+    return winning_score(parse_game(lines), last=True)
 
 
 assert day4_2(text_input(example_input)) == 1924
