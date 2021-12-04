@@ -2,10 +2,13 @@ days = $(wildcard day*.py)
 
 .PHONY: $(days)
 
-all: $(days) checkfmt
+all: checkfmt $(days)
 
-$(days):
+$(days): mypy
 	python3 $@
+
+mypy:
+	mypy --pretty *.py
 
 fmt:
 	python3 -m black --quiet *.py

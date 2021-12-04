@@ -1,5 +1,6 @@
 """Day 4: Giant Squid"""
 
+from typing import List, Tuple
 from util import file_input, text_input, split
 
 example_input = """
@@ -24,25 +25,27 @@ example_input = """
  2  0 12  3  7
 """
 
+Board = List[List[int]]
 
-def parse_board(lines):
+
+def parse_board(lines: List[str]) -> Board:
     return [split(line, parser=int, sep=None) for line in lines]
 
 
-def parse_boards(lines, board_height=5):
+def parse_boards(lines: List[str], board_height: int = 5) -> List[Board]:
     return [
         parse_board(lines[i : i + board_height])
         for i in range(2, len(lines), board_height + 1)
     ]
 
 
-def nums_and_boards(lines):
+def nums_and_boards(lines: List[str]) -> Tuple[List[int], List[Board]]:
     nums = split(lines[0], parser=int, sep=",")
     boards = parse_boards(lines)
     return nums, boards
 
 
-def is_winner(board, drawn):
+def is_winner(board: Board, drawn: List[int]) -> bool:
     for i, row in enumerate(board):
         if set(row) <= set(drawn):
             return True
@@ -52,12 +55,12 @@ def is_winner(board, drawn):
     return False
 
 
-def score(board, drawn):
+def score(board: Board, drawn: List[int]) -> int:
     last_drawn = drawn[-1]
     return sum((n for row in board for n in row if n not in drawn)) * last_drawn
 
 
-def winning_score(boards, nums, last=False):
+def winning_score(boards: List[Board], nums: List[int], last: bool = False) -> int:
     drawn = []
     winners = []
     for n in nums:
@@ -73,7 +76,7 @@ def winning_score(boards, nums, last=False):
     raise ValueError("no winner found")
 
 
-def day4_1(lines):
+def day4_1(lines: List[str]) -> int:
     nums, boards = nums_and_boards(lines)
     return winning_score(boards, nums)
 
@@ -82,7 +85,7 @@ assert day4_1(text_input(example_input)) == 4512
 assert day4_1(file_input(4)) == 33348
 
 
-def day4_2(lines):
+def day4_2(lines: List[str]) -> int:
     nums, boards = nums_and_boards(lines)
     return winning_score(boards, nums, last=True)
 
