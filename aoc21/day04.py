@@ -1,6 +1,6 @@
 """Day 4: Giant Squid"""
 
-from typing import List, Tuple
+from typing import List, Set, Tuple
 from util import file_input, text_input, split
 
 example_input = """
@@ -45,12 +45,12 @@ def nums_and_boards(lines: List[str]) -> Tuple[List[int], List[Board]]:
     return nums, boards
 
 
-def is_winner(board: Board, drawn: List[int]) -> bool:
+def is_winner(board: Board, drawn: Set[int]) -> bool:
     for i, row in enumerate(board):
-        if set(row) <= set(drawn):
+        if set(row) <= drawn:
             return True
-        col = [row[i] for row in board]
-        if set(col) <= set(drawn):
+        col = (row[i] for row in board)
+        if set(col) <= drawn:
             return True
     return False
 
@@ -66,7 +66,7 @@ def winning_score(boards: List[Board], nums: List[int], last: bool = False) -> i
     for n in nums:
         drawn.append(n)
         for i, board in enumerate(boards):
-            if not is_winner(board, drawn):
+            if not is_winner(board, set(drawn)):
                 continue
             if i in winners:
                 continue
