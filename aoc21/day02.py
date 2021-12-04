@@ -1,6 +1,6 @@
 """Day 2: Dive!"""
 
-from util import read_input, parse_input
+from util import file_input, text_input
 
 example_input = """
 forward 5
@@ -30,8 +30,8 @@ def day2_1(cmds):
     return hpos * depth
 
 
-assert day2_1(parse_input(example_input, parser=parse_cmd)) == 150
-assert day2_1(read_input(2, parser=parse_cmd)) == 2039912
+assert day2_1(text_input(example_input, parser=parse_cmd)) == 150
+assert day2_1(file_input(2, parser=parse_cmd)) == 2039912
 
 
 def day2_2(cmds):
@@ -49,5 +49,5 @@ def day2_2(cmds):
     return hpos * depth
 
 
-assert day2_2(parse_input(example_input, parser=parse_cmd)) == 900
-assert day2_2(read_input(2, parser=parse_cmd)) == 1942068080
+assert day2_2(text_input(example_input, parser=parse_cmd)) == 900
+assert day2_2(file_input(2, parser=parse_cmd)) == 1942068080

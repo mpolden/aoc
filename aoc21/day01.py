@@ -1,6 +1,6 @@
 """Day 1: Sonar Sweep"""
 
-from util import read_input, parse_input
+from util import file_input, text_input
 
 example_input = """
 199
@@ -26,8 +26,8 @@ def day1_1(reports):
     return inc
 
 
-assert day1_1(parse_input(example_input, parser=int)) == 7
-assert day1_1(read_input(1, parser=int)) == 1462
+assert day1_1(text_input(example_input, parser=int)) == 7
+assert day1_1(file_input(1, parser=int)) == 1462
 
 
 def day1_2(reports):
@@ -47,5 +47,5 @@ def day1_2(reports):
     return inc
 
 
-assert day1_2(parse_input(example_input, parser=int)) == 5
-assert day1_2(read_input(1, parser=int)) == 1497
+assert day1_2(text_input(example_input, parser=int)) == 5
+assert day1_2(file_input(1, parser=int)) == 1497

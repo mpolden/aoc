@@ -1,7 +1,7 @@
 """Day 3: Binary Diagnostic"""
 
 from collections import Counter
-from util import read_input, parse_input
+from util import file_input, text_input
 
 example_input = """
 00100
@@ -39,8 +39,8 @@ def day3_1(report):
     return gamma_rate * epsilon_rate
 
 
-assert day3_1(parse_input(example_input)) == 198
-assert day3_1(read_input(3)) == 4001724
+assert day3_1(text_input(example_input)) == 198
+assert day3_1(file_input(3)) == 4001724
 
 
 def find_rating(report, max_freq=True):
@@ -61,5 +61,5 @@ def day3_2(report):
     return find_rating(report, max_freq=True) * find_rating(report, max_freq=False)
 
 
-assert day3_2(parse_input(example_input, parser=parse_num)) == 230
-assert day3_2(read_input(3, parser=parse_num)) == 587895
+assert day3_2(text_input(example_input, parser=parse_num)) == 230
+assert day3_2(file_input(3, parser=parse_num)) == 587895
