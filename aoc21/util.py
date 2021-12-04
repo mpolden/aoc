@@ -9,3 +9,7 @@ def file_input(day_num, parser=str):
 
 def text_input(text, parser=str):
     return [parser(line) for line in text.strip().splitlines()]
+
+
+def split(text, parser=str, sep=" "):
+    return [parser(t) for t in text.split(sep)]

@@ -11,4 +11,4 @@ fmt:
 	python3 -m black --quiet *.py
 
 checkfmt:
-	python3 -m black --check --diff *.py
+	python3 -m black --check --diff --quiet *.py
