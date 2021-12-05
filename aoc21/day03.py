@@ -2,7 +2,7 @@
 
 from collections import Counter
 from typing import List
-from util import file_input, text_input
+from util import file_input, text_input, ints
 
 example_input = """
 00100
@@ -43,8 +43,8 @@ def day3_1(report: Report) -> int:
     return gamma_rate * epsilon_rate
 
 
-assert day3_1(text_input(example_input)) == 198
-assert day3_1(file_input(3)) == 4001724
+assert day3_1(text_input(example_input, parse_bin)) == 198
+assert day3_1(file_input(3, parse_bin)) == 4001724
 
 
 def find_rating(report: Report, max_freq: bool = True) -> int:
@@ -65,5 +65,5 @@ def day3_2(report: Report) -> int:
     return find_rating(report, max_freq=True) * find_rating(report, max_freq=False)
 
 
-assert day3_2(text_input(example_input, parser=parse_bin)) == 230
-assert day3_2(file_input(3, parser=parse_bin)) == 587895
+assert day3_2(text_input(example_input, parse_bin)) == 230
+assert day3_2(file_input(3, parse_bin)) == 587895

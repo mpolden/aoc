@@ -4,21 +4,22 @@ import re
 from typing import Callable, List, Optional, Iterable, TypeVar
 
 T = TypeVar("T")
+Parser = Callable[[str], T]
 
 
-def file_input(day_num: int, parser=str) -> List:
+def file_input(day_num: int, parser: Parser[T]) -> List[T]:
     "Read input file for day_num, split it into lines and apply parser to each line"
     filename = os.path.join("input", "input{}.txt".format(day_num))
     with open(filename) as f:
         return text_input(f.read(), parser)
 
 
-def text_input(text: str, parser=str) -> List:
+def text_input(text: str, parser: Parser[T]) -> List[T]:
     "Split text into lines and apply parser to each line"
     return [parser(line) for line in text.strip().splitlines()]
 
 
-def split(text: str, parser=str, sep: Optional[str] = " ") -> List:
+def split(text: str, parser: Parser[T], sep: Optional[str] = " ") -> List[T]:
     "Split text on sep and apply parser to each part"
     return [parser(t) for t in text.split(sep)]
 

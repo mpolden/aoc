@@ -8,7 +8,7 @@ $(days): mypy
 	python3 $@
 
 mypy:
-	mypy --pretty *.py
+	mypy --strict --pretty *.py
 
 fmt:
 	python3 -m black --quiet *.py

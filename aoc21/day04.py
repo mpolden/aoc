@@ -78,13 +78,13 @@ def day4_1(lines: List[str]) -> int:
     return winning_score(parse_game(lines))
 
 
-assert day4_1(text_input(example_input)) == 4512
-assert day4_1(file_input(4)) == 33348
+assert day4_1(text_input(example_input, str)) == 4512
+assert day4_1(file_input(4, str)) == 33348
 
 
 def day4_2(lines: List[str]) -> int:
     return winning_score(parse_game(lines), last=True)
 
 
-assert day4_2(text_input(example_input)) == 1924
-assert day4_2(file_input(4)) == 8112
+assert day4_2(text_input(example_input, str)) == 1924
+assert day4_2(file_input(4, str)) == 8112
