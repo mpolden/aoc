@@ -2,7 +2,7 @@
 
 from collections import namedtuple, defaultdict
 from typing import Dict, List, Optional, Tuple
-from util import file_input, text_input, split
+from util import file_input, text_input, ints, split
 
 example_input = """
 0,9 -> 5,9
@@ -22,11 +22,8 @@ Line = Tuple[Point, Point]
 
 
 def parse_line(text: str) -> Line:
-    start, end = text.split(" -> ")
-    return (
-        Point(*split(start, parser=int, sep=",")),
-        Point(*split(end, parser=int, sep=",")),
-    )
+    start, end = split(text, parser=ints, sep=" -> ")
+    return Point(*start), Point(*end)
 
 
 def points_of(line: Line, diagonal: bool = False) -> List[Point]:

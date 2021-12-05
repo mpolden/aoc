@@ -1,7 +1,7 @@
 """Day 4: Giant Squid"""
 
 from typing import List, Set, Tuple
-from util import file_input, text_input, split
+from util import file_input, text_input, ints
 
 example_input = """
 7,4,9,5,11,17,23,2,0,14,21,24,10,16,13,6,15,25,12,22,18,20,8,19,3,26,1
@@ -30,7 +30,7 @@ Game = Tuple[List[int], List[Board]]
 
 
 def parse_board(lines: List[str]) -> Board:
-    return [split(line, parser=int, sep=None) for line in lines]
+    return [ints(line) for line in lines]
 
 
 def parse_boards(lines: List[str], board_height: int = 5) -> List[Board]:
@@ -41,9 +41,7 @@ def parse_boards(lines: List[str], board_height: int = 5) -> List[Board]:
 
 
 def parse_game(lines: List[str]) -> Game:
-    nums = split(lines[0], parser=int, sep=",")
-    boards = parse_boards(lines)
-    return nums, boards
+    return ints(lines[0]), parse_boards(lines)
 
 
 def is_winner(board: Board, drawn: Set[int]) -> bool:

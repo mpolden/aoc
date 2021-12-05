@@ -1,4 +1,5 @@
 import os.path
+import re
 
 from typing import List, Optional
 
@@ -15,3 +16,7 @@ def text_input(text: str, parser=str) -> List:
 
 def split(text: str, parser=str, sep: Optional[str] = " ") -> List:
     return [parser(t) for t in text.split(sep)]
+
+
+def ints(text: str) -> List[int]:
+    return [int(n) for n in re.findall(r"-?[0-9]+", text)]
