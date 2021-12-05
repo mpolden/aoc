@@ -3,7 +3,7 @@
 from collections import namedtuple, defaultdict
 from itertools import repeat
 from typing import Dict, List, Optional, Tuple, Iterable
-from util import file_input, text_input, ints, split
+from util import file_input, text_input, ints, split, quantify
 
 example_input = """
 0,9 -> 5,9
@@ -47,7 +47,7 @@ def overlapping(lines: List[Line], diagonal: bool = False) -> int:
     for line in lines:
         for point in points_of(line, diagonal):
             freq[point] += 1
-    return sum(1 for count in freq.values() if count > 1)
+    return quantify(freq.values(), lambda count: count > 1)
 
 
 def day5_1(lines: List[Line]) -> int:
