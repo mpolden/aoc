@@ -1,7 +1,8 @@
 """Day 5: Hydrothermal Venture"""
 
 from collections import namedtuple, defaultdict
-from typing import Dict, List, Optional, Tuple
+from itertools import repeat
+from typing import Dict, List, Optional, Tuple, Iterable
 from util import file_input, text_input, ints, split
 
 example_input = """
@@ -26,29 +27,19 @@ def parse_line(text: str) -> Line:
     return Point(*start), Point(*end)
 
 
+def seq(a: int, b: int) -> Iterable[int]:
+    if a == b:
+        return repeat(a)
+    step = 1 if a < b else -1
+    return range(a, b + step, step)
+
+
 def points_of(line: Line, diagonal: bool = False) -> List[Point]:
     start, end = line
-    if start.x == end.x:
-        return [
-            Point(start.x, y)
-            for y in range(min(start.y, end.y), max(start.y, end.y) + 1)
-        ]
-    elif start.y == end.y:
-        return [
-            Point(x, start.y)
-            for x in range(min(start.x, end.x), max(start.x, end.x) + 1)
-        ]
-    elif diagonal:
-        x_step = 1 if start.x < end.x else -1
-        y_step = 1 if start.y < end.y else -1
-        return [
-            Point(x, y)
-            for x, y in zip(
-                range(start.x, end.x + x_step, x_step),
-                range(start.y, end.y + y_step, y_step),
-            )
-        ]
-    return []
+    is_diagonal = start.x != end.x and start.y != end.y
+    if not diagonal and is_diagonal:
+        return []
+    return [Point(x, y) for x, y in zip(seq(start.x, end.x), seq(start.y, end.y))]
 
 
 def overlapping(lines: List[Line], diagonal: bool = False) -> int:
