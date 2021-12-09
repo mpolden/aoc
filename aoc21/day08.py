@@ -48,18 +48,18 @@ def day8_2(entries: List[Entry]) -> int:
     for inputs, outputs in entries:
         inputs = [sort_segment(seg) for seg in inputs]
         segments: Dict[str, int] = {}
+        numbers: Dict[int, str] = {}
         for seg in inputs:
-            width = len(seg)
-            if width == 2:
+            if len(seg) == 2:
                 segments[seg] = 1
-            elif width == 4:
+                numbers[1] = seg
+            elif len(seg) == 4:
                 segments[seg] = 4
-            elif width == 3:
+                numbers[4] = seg
+            elif len(seg) == 3:
                 segments[seg] = 7
-            elif width == 7:
+            elif len(seg) == 7:
                 segments[seg] = 8
-        # Inverted table of known segments by their value, e.g. 1 => ab
-        numbers: Dict[int, Set[str]] = {v: set(k) for k, v in segments.items()}
         for seg in inputs:
             s = set(seg)
             if len(seg) == 5:  # 2, 3 and 5
