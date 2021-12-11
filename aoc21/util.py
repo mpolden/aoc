@@ -1,6 +1,7 @@
 import os.path
 import re
 
+from functools import reduce
 from typing import Callable, List, Optional, Iterable, TypeVar
 
 T = TypeVar("T")
@@ -32,3 +33,8 @@ def ints(text: str) -> List[int]:
 def quantify(iterable: Iterable[T], pred: Callable[[T], bool]) -> int:
     "Count how many times pred is true when applied to elements in iterable"
     return sum(map(pred, iterable))
+
+
+def product(iterable: Iterable[int]) -> int:
+    "Product of all elements in iterable"
+    return reduce(lambda acc, n: acc * n, iterable)
