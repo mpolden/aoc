@@ -1,9 +1,7 @@
 """Day 10: Syntax Scoring"""
 
 from typing import Dict, List, Optional, Tuple
-from collections import defaultdict
 from util import file_input, text_input
-from pprint import pprint
 
 example_input = """
 [({(<(())[]>[[{[]{<()<>>
