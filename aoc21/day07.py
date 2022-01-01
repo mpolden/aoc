@@ -10,10 +10,10 @@ def min_consumption(positions: List[int], fixed_burn_rate: bool = True) -> int:
     num_positions = max(positions) + 1
     fuel_required = [0] * num_positions
     for from_pos in positions:
-        for to_pos in range(0, num_positions):
+        for to_pos in range(num_positions):
             fuel_spent = abs(to_pos - from_pos)
             if not fixed_burn_rate:
-                fuel_spent = int((fuel_spent ** 2 + fuel_spent) / 2)
+                fuel_spent = int((fuel_spent * fuel_spent + fuel_spent) / 2)
             fuel_required[to_pos] += fuel_spent
     return min(fuel_required)
 
