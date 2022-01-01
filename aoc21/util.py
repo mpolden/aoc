@@ -30,6 +30,11 @@ def ints(text: str) -> List[int]:
     return [int(n) for n in re.findall(r"-?[0-9]+", text)]
 
 
+def digits(text: str) -> List[int]:
+    "Split text into individual digits"
+    return [int(c) for c in text]
+
+
 def quantify(iterable: Iterable[T], pred: Callable[[T], bool]) -> int:
     "Count how many times pred is true when applied to elements in iterable"
     return sum(map(pred, iterable))

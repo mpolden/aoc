@@ -2,7 +2,7 @@
 
 from typing import List, Set, Tuple, Dict
 from collections import namedtuple
-from util import file_input, text_input, ints, product
+from util import file_input, text_input, digits, product
 
 
 example_input = """
@@ -14,10 +14,6 @@ example_input = """
 """
 
 Point = Tuple[int, int]
-
-
-def parse_line(text: str) -> List[int]:
-    return [int(c) for c in text]
 
 
 def neighbours_of(point: Point, height: int, width: int) -> Set[Point]:
@@ -48,8 +44,8 @@ def day9_1(lines: List[List[int]]) -> int:
     return risk_level
 
 
-assert day9_1(text_input(example_input, parse_line)) == 15
-assert day9_1(file_input(9, parse_line)) == 633
+assert day9_1(text_input(example_input, digits)) == 15
+assert day9_1(file_input(9, digits)) == 633
 
 
 def cluster_of(point: Point, lines: List[List[int]], cluster: Set[Point]) -> Set[Point]:
@@ -74,5 +70,5 @@ def day9_2(lines: List[List[int]]) -> int:
     return product(sorted(basin_sizes)[-3:])
 
 
-assert day9_2(text_input(example_input, parse_line)) == 1134
-assert day9_2(file_input(9, parse_line)) == 1050192
+assert day9_2(text_input(example_input, digits)) == 1134
+assert day9_2(file_input(9, digits)) == 1050192
