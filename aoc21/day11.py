@@ -2,7 +2,7 @@
 
 from itertools import count
 from typing import List, Optional, Tuple, Set
-from util import file_input, text_input, digits, quantify
+from util import file_input, text_input, digits
 
 example_input = """
 5483143223
@@ -65,9 +65,8 @@ def run_steps(rows: List[List[int]], max_steps: Optional[int] = 100) -> int:
                 flash((x, y), rows, flashed)
         for x, y in flashed:
             rows[y][x] = 0
-        if max_steps is None:
-            if all((quantify(r, lambda n: n == 0) == len(r) for r in rows)):
-                return step + 1
+        if max_steps is None and len(flashed) == len(rows) * len(rows[0]):
+            return step + 1
         else:
             result += len(flashed)
     return result
