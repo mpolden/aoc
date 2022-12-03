@@ -2,7 +2,6 @@
 
 from typing import List, Tuple
 from util import file_input, text_input
-from enum import Enum
 
 example_input = """
 A Y
