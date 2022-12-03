@@ -2,10 +2,16 @@ import os.path
 import re
 
 from functools import reduce
-from typing import Callable, List, Optional, Iterable, TypeVar
+from typing import Callable, List, Optional, Iterable, TypeVar, Any
 
 T = TypeVar("T")
 Parser = Callable[[str], T]
+
+
+def assert2(want: Any, got: Any) -> None:
+    """A better assert"""
+    if got != want:
+        raise AssertionError("got {}, want {}".format(got, want))
 
 
 def file_input(day_num: int, parser: Parser[T], sep: Optional[str] = "\n") -> List[T]:
