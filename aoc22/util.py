@@ -20,11 +20,6 @@ def text_input(text: str, parser: Parser[T], sep: Optional[str] = "\n") -> List[
     return [parser(line) for line in text.strip().split(sep)]
 
 
-def split(text: str, parser: Parser[T], sep: Optional[str] = " ") -> List[T]:
-    "Split text on sep and apply parser to each part"
-    return [parser(t) for t in text.split(sep)]
-
-
 def ints(text: str) -> List[int]:
     "Find integers in text"
     return [int(n) for n in re.findall(r"-?[0-9]+", text)]
