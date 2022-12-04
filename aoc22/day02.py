@@ -34,7 +34,7 @@ scores = {
 }
 
 
-def score(moves: Iterable[List[str]]):
+def score(moves: Iterable[List[str]]) -> int:
     return sum(shape_scores[b] + scores[a][b] for a, b in moves)
 
 
@@ -53,7 +53,10 @@ def day2_2(moves: List[List[str]]) -> int:
         "Z": 6,
     }
     inverted_scores = {k: {v2: k2 for k2, v2 in v.items()} for k, v in scores.items()}
-    wanted_move = lambda a, b: inverted_scores[a][score_by_move[b]]
+
+    def wanted_move(a: str, b: str) -> str:
+        return inverted_scores[a][score_by_move[b]]
+
     return score(([a, wanted_move(a, b)] for a, b in moves))
 
 
