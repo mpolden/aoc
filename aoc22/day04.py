@@ -32,10 +32,7 @@ def overlap(a: Range, b: Range, partial: bool = False) -> bool:
 
 
 def count_overlaps(assignments: List[Tuple[Range, Range]], partial: bool) -> int:
-    return sum(
-        1 if overlap(a, b, partial) or overlap(b, a, partial) else 0
-        for a, b in assignments
-    )
+    return sum(overlap(a, b, partial) or overlap(b, a, partial) for a, b in assignments)
 
 
 def day4_1(assignments: List[Tuple[Range, Range]]) -> int:
