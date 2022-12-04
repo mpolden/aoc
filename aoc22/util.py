@@ -14,9 +14,9 @@ def assert2(want: Any, got: Any) -> None:
         raise AssertionError("got {}, want {}".format(got, want))
 
 
-def file_input(day_num: int, parser: Parser[T], sep: Optional[str] = "\n") -> List[T]:
-    "Read input file for day_num, split it into lines and apply parser to each line"
-    filename = os.path.join("input", "input{}.txt".format(day_num))
+def file_input(day: int, parser: Parser[T], sep: Optional[str] = "\n") -> List[T]:
+    "Read input file for given day, split it into lines and apply parser to each line"
+    filename = os.path.join("input", "input{:02d}.txt".format(day))
     with open(filename) as f:
         return text_input(f.read(), parser, sep)
 
