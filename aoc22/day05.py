@@ -46,9 +46,7 @@ def parse_moves(lines: List[str]) -> List[Move]:
 
 def arrange_stacks(lines: List[str], retain_order: bool = False) -> str:
     stacks = parse_stacks(lines)
-    moves = parse_moves(lines)
-    for move in moves:
-        n, src, dst = move
+    for n, src, dst in parse_moves(lines):
         crates = []
         for _ in range(n):
             crates.append(stacks[src].popleft())
