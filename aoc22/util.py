@@ -23,7 +23,7 @@ def file_input(day: int, parser: Parser[T], sep: Optional[str] = "\n") -> List[T
 
 def text_input(text: str, parser: Parser[T], sep: Optional[str] = "\n") -> List[T]:
     "Split text into lines and apply parser to each line"
-    return [parser(line) for line in text.strip().split(sep)]
+    return [parser(line) for line in text.strip("\n").split(sep)]
 
 
 def ints(text: str) -> List[int]:
