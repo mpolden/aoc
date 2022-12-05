@@ -3,7 +3,7 @@
 import re
 
 from collections import deque
-from typing import List, Tuple, Deque
+from typing import List, Tuple, Deque, Iterable
 from util import assert2, file_input, text_input
 
 example_input = """
@@ -34,14 +34,12 @@ def parse_stacks(lines: List[str]) -> List[Deque[str]]:
     return stacks
 
 
-def parse_moves(lines: List[str]) -> List[Move]:
-    moves: List[Move] = []
-    for line in lines:
-        if not line.startswith("move "):
-            continue
-        nums = re.findall(r"\d+", line)
-        moves.append((int(nums[0]), int(nums[1]) - 1, int(nums[2]) - 1))
-    return moves
+def parse_moves(lines: List[str]) -> Iterable[Move]:
+    def parse_move(s: str) -> Move:
+        nums = re.findall(r"\d+", s)
+        return (int(nums[0]), int(nums[1]) - 1, int(nums[2]) - 1)
+
+    return (parse_move(line) for line in lines if line.startswith("move "))
 
 
 def arrange_stacks(lines: List[str], retain_order: bool = False) -> str:
