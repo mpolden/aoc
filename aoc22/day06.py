@@ -17,8 +17,6 @@ def find_marker(packet: str, size: int) -> int:
     read = ""
     for c in packet:
         read += c
-        if len(read) < size:
-            continue
         if len(set(read[-size:])) == size:
             break
     return len(read)
