@@ -47,7 +47,7 @@ assert2(21, day8_1(text_input(example_input, digits)))
 assert2(1676, day8_1(file_input(8, digits)))
 
 
-def scening_score(row: int, col: int, trees: List[List[int]]) -> int:
+def scenic_score(row: int, col: int, trees: List[List[int]]) -> int:
     if row == 0 or row == len(trees) - 1:
         return 0
     if col == 0 or col == len(trees[row]) - 1:
@@ -77,7 +77,7 @@ def scening_score(row: int, col: int, trees: List[List[int]]) -> int:
 
 def day8_2(trees: List[List[int]]) -> int:
     return max(
-        scening_score(row, col, trees)
+        scenic_score(row, col, trees)
         for row in range(len(trees))
         for col in range(len(trees[row]))
     )
