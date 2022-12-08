@@ -1,7 +1,6 @@
 """Day 8: Treetop Tree House"""
 
-from typing import List
-from itertools import takewhile
+from typing import List, Tuple, Iterable
 from util import assert2, text_input, file_input, digits
 
 
@@ -14,32 +13,39 @@ example_input = """
 """
 
 
-def visible(row: int, col: int, trees: List[List[int]]) -> bool:
-    # edges are always visible
-    if row == 0 or row == len(trees) - 1:
+Grid = List[List[int]]
+Point = Tuple[int, int]
+
+
+def is_edge(tree: Point, trees: Grid) -> bool:
+    x, y = tree
+    return x == 0 or x == len(trees) - 1 or y == 0 or y == len(trees[x]) - 1
+
+
+def neighbours(tree: Point, trees: Grid) -> List[Iterable[Point]]:
+    x, y = tree
+    return [
+        ((i, y) for i in range(x - 1, -1, -1)),  # top
+        ((i, y) for i in range(x + 1, len(trees))),  # bottom
+        ((x, i) for i in range(y - 1, -1, -1)),  # left
+        ((x, i) for i in range(y + 1, len(trees[x]))),  # right
+    ]
+
+
+def is_visible(tree: Point, trees: Grid) -> bool:
+    if is_edge(tree, trees):
         return True
-    if col == 0 or col == len(trees[row]) - 1:
-        return True
-    # visible from top edge?
-    if max(trees[i][col] for i in range(0, row)) < trees[row][col]:
-        return True
-    # visible from bottom edge?
-    if max(trees[i][col] for i in range(row + 1, len(trees))) < trees[row][col]:
-        return True
-    # visible from left edge?
-    if max(trees[row][i] for i in range(0, col)) < trees[row][col]:
-        return True
-    # visible from right edge?
-    if max(trees[row][i] for i in range(col + 1, len(trees[row]))) < trees[row][col]:
-        return True
+    for ns in neighbours(tree, trees):
+        if max(trees[x][y] for x, y in ns) < trees[tree[0]][tree[1]]:
+            return True
     return False
 
 
-def day8_1(trees: List[List[int]]) -> int:
+def day8_1(trees: Grid) -> int:
     return sum(
-        visible(row, col, trees)
-        for row in range(len(trees))
-        for col in range(len(trees[row]))
+        is_visible((x, y), trees)
+        for x in range(len(trees))
+        for y in range(len(trees[x]))
     )
 
 
@@ -47,39 +53,25 @@ assert2(21, day8_1(text_input(example_input, digits)))
 assert2(1676, day8_1(file_input(8, digits)))
 
 
-def scenic_score(row: int, col: int, trees: List[List[int]]) -> int:
-    if row == 0 or row == len(trees) - 1:
+def scenic_score(tree: Point, trees: Grid) -> int:
+    if is_edge(tree, trees):
         return 0
-    if col == 0 or col == len(trees[row]) - 1:
-        return 0
-    top = 0
-    for i in range(row - 1, -1, -1):
-        top += 1
-        if trees[i][col] >= trees[row][col]:
-            break
-    bottom = 0
-    for i in range(row + 1, len(trees)):
-        bottom += 1
-        if trees[i][col] >= trees[row][col]:
-            break
-    left = 0
-    for i in range(col - 1, -1, -1):
-        left += 1
-        if trees[row][i] >= trees[row][col]:
-            break
-    right = 0
-    for i in range(col + 1, len(trees[row])):
-        right += 1
-        if trees[row][i] >= trees[row][col]:
-            break
-    return top * bottom * left * right
+    score = 1
+    for ns in neighbours(tree, trees):
+        n = 0
+        for x, y in ns:
+            n += 1
+            if trees[x][y] >= trees[tree[0]][tree[1]]:
+                break
+        score *= n
+    return score
 
 
-def day8_2(trees: List[List[int]]) -> int:
+def day8_2(trees: Grid) -> int:
     return max(
-        scenic_score(row, col, trees)
-        for row in range(len(trees))
-        for col in range(len(trees[row]))
+        scenic_score((x, y), trees)
+        for x in range(len(trees))
+        for y in range(len(trees[x]))
     )
 
 
