@@ -11,7 +11,7 @@ Parser = Callable[[str], T]
 def assert2(want: Any, got: Any) -> None:
     """A better assert"""
     if got != want:
-        raise AssertionError("got {}, want {}".format(got, want))
+        raise AssertionError("got {}, want {}".format(repr(got), repr(want)))
 
 
 def file_input(day: int, parser: Parser[T], sep: Optional[str] = "\n") -> List[T]:
@@ -37,10 +37,5 @@ def digits(text: str) -> List[int]:
 
 
 def quantify(iterable: Iterable[T], pred: Callable[[T], bool]) -> int:
-    "Count how many times pred is true when applied to elements in iterable"
-    return sum(map(pred, iterable))
-
-
-def product(iterable: Iterable[int]) -> int:
-    "Product of all elements in iterable"
-    return reduce(lambda acc, n: acc * n, iterable)
+    "Count how many times pred is true for items in iterable"
+    return sum(1 for item in iterable if pred(item))
