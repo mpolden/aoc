@@ -39,3 +39,8 @@ def digits(text: str) -> List[int]:
 def quantify(iterable: Iterable[T], pred: Callable[[T], bool]) -> int:
     "Count how many times pred is true for items in iterable"
     return sum(1 for item in iterable if pred(item))
+
+
+def product(iterable: Iterable[int]) -> int:
+    "Product of all elements in iterable"
+    return reduce(lambda acc, n: acc * n, iterable)
