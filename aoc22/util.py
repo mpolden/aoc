@@ -44,3 +44,8 @@ def quantify(iterable: Iterable[T], pred: Callable[[T], bool]) -> int:
 def product(iterable: Iterable[int]) -> int:
     "Product of all elements in iterable"
     return reduce(lambda acc, n: acc * n, iterable)
+
+
+def partition(items: List[T], size: int) -> List[List[T]]:
+    "Partition list into sub-lists of given size"
+    return [items[i : i + size] for i in range(0, len(items), size)]
