@@ -32,8 +32,8 @@ def find_digits(text: str, parse_words: bool = False) -> List[int]:
         elif parse_words:
             buf += c
             for i, w in enumerate(words):
-                if len(buf) >= len(w) and buf[len(buf)-len(w):] == w:
-                    ints.append(i+1)
+                if len(buf) >= len(w) and buf[len(buf) - len(w) :] == w:
+                    ints.append(i + 1)
     return ints
 
 
