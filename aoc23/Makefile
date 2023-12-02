@@ -11,7 +11,7 @@ mypy:
 	mypy --strict --pretty *.py
 
 fmt:
-	python3 -m black --quiet *.py
+	black --quiet *.py
 
 checkfmt:
-	python3 -m black --check --diff --quiet *.py
+	black --check --diff --quiet *.py
