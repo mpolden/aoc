@@ -1,8 +1,7 @@
 """Day 1: Trebuchet?!"""
 
-import regex as re
 from typing import List
-from util import assert2, file_input, text_input, ints
+from util import assert2, file_input, text_input
 
 example_input = """
 1abc2
@@ -24,24 +23,18 @@ zoneight234
 
 def find_digits(text: str, parse_words: bool = False) -> List[int]:
     "Find numerical or english digits in text"
-    word_to_int = {str(i): i for i in range(1, 10)}
-    expr = "[0-9]"
-    if parse_words:
-        words = [
-            "one",
-            "two",
-            "three",
-            "four",
-            "five",
-            "six",
-            "seven",
-            "eight",
-            "nine",
-        ]
-        for i, w in enumerate(words):
-            word_to_int[w] = i + 1
-            expr += "|" + w
-    return [word_to_int[n] for n in re.findall(expr, text, overlapped=True)]
+    words = ("one", "two", "three", "four", "five", "six", "seven", "eight", "nine")
+    ints = []
+    buf = ""
+    for c in text:
+        if ord(c) >= 49 and ord(c) <= 57:
+            ints.append(int(c))
+        elif parse_words:
+            buf += c
+            for i, w in enumerate(words):
+                if len(buf) >= len(w) and buf[len(buf)-len(w):] == w:
+                    ints.append(i+1)
+    return ints
 
 
 def sum_calibration_values(values: List[str], parse_words: bool = False) -> int:
@@ -65,4 +58,4 @@ def day1_2(values: List[str]) -> int:
 
 
 assert2(281, day1_2(text_input(example_input2, str)))
-assert2(0, day1_2(file_input(1, str)))
+assert2(55614, day1_2(file_input(1, str)))
