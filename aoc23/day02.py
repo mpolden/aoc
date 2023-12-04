@@ -1,7 +1,5 @@
 """Day 2: Cube Conundrum"""
 
-import re
-
 from typing import List, Dict, Tuple, NamedTuple
 from util import text_input, file_input, assert2, product
 
@@ -54,19 +52,17 @@ def min_cubes(game: Game) -> Rgb:
     return (r, g, b)
 
 
-def day2_1(lines: List[str]) -> int:
-    games = (parse_game(line) for line in lines)
-    return sum((g.id for g in games if valid_game(g, (12, 13, 14))))
+def day2_1(games: List[Game]) -> int:
+    return sum(g.id for g in games if valid_game(g, (12, 13, 14)))
 
 
-assert2(8, day2_1(text_input(example_input, str)))
-assert2(3035, day2_1(file_input(2, str)))
+assert2(8, day2_1(text_input(example_input, parse_game)))
+assert2(3035, day2_1(file_input(2, parse_game)))
 
 
-def day2_2(lines: List[str]) -> int:
-    games = (parse_game(line) for line in lines)
+def day2_2(games: List[Game]) -> int:
     return sum(product(min_cubes(g)) for g in games)
 
 
-assert2(2286, day2_2(text_input(example_input, str)))
-assert2(66027, day2_2(file_input(2, str)))
+assert2(2286, day2_2(text_input(example_input, parse_game)))
+assert2(66027, day2_2(file_input(2, parse_game)))
