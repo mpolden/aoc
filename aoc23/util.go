@@ -138,10 +138,12 @@ func filter[V any](values []V, pred func(v V) bool) []V {
 	return filtered
 }
 
-func anyMatch[V any](values []V, pred func(v V) bool) bool { return len(filter(values, pred)) > 0 }
+func frequency[V any](values []V, pred func(v V) bool) int { return len(filter(values, pred)) }
+
+func anyMatch[V any](values []V, pred func(v V) bool) bool { return frequency(values, pred) > 0 }
 
 func allMatch[V any](values []V, pred func(v V) bool) bool {
-	return len(filter(values, pred)) == len(values)
+	return frequency(values, pred) == len(values)
 }
 
 func noneMatch[V any](values []V, pred func(v V) bool) bool { return !anyMatch(values, pred) }
