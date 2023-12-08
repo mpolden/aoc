@@ -10,6 +10,36 @@ import (
 	"testing"
 )
 
+type Set[V comparable] struct{ set map[V]bool }
+
+func (s *Set[V]) Add(v V) bool {
+	_, ok := s.set[v]
+	if !ok {
+		if s.set == nil {
+			s.set = make(map[V]bool)
+		}
+		s.set[v] = true
+	}
+	return !ok
+}
+
+func (s *Set[V]) Contains(v V) bool {
+	_, ok := s.set[v]
+	return ok
+}
+
+func (s *Set[V]) Slice() []V {
+	values := make([]V, 0, len(s.set))
+	for v := range s.set {
+		values = append(values, v)
+	}
+	return values
+}
+
+func (s *Set[V]) Len() int { return len(s.set) }
+
+func (s *Set[V]) Reset() { clear(s.set) }
+
 func assert(t *testing.T, want, got int) {
 	t.Helper()
 	if got != want {
@@ -60,6 +90,8 @@ func requireInt(s string) int {
 	return n
 }
 
+func runes(s string) []rune { return []rune(s) }
+
 func isDigit(r rune) bool { return int(r) >= 48 && int(r) <= 57 }
 
 func max(a, b int) int {
@@ -106,13 +138,13 @@ func filter[V any](values []V, pred func(v V) bool) []V {
 	return filtered
 }
 
-func noneMatch[V any](values []V, pred func(v V) bool) bool {
-	return len(filter(values, pred)) == 0
-}
+func anyMatch[V any](values []V, pred func(v V) bool) bool { return len(filter(values, pred)) > 0 }
 
 func allMatch[V any](values []V, pred func(v V) bool) bool {
 	return len(filter(values, pred)) == len(values)
 }
+
+func noneMatch[V any](values []V, pred func(v V) bool) bool { return !anyMatch(values, pred) }
 
 func product(ints []int) int { return reduce(ints, mul, 1) }
 
