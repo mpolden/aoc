@@ -38,7 +38,7 @@ func parseGame(line string) Game {
 }
 
 func validGame(game Game, rgb Rgb) bool {
-	return noneMatch(game.cubes, func(cubes Rgb) bool {
+	return none(game.cubes, func(cubes Rgb) bool {
 		return cubes.r > rgb.r || cubes.g > rgb.g || cubes.b > rgb.b
 	})
 }
@@ -46,7 +46,7 @@ func validGame(game Game, rgb Rgb) bool {
 func countValidGames(r io.Reader) int {
 	games := parseLines(r, parseGame)
 	valid := filter(games, partial(validGame, Rgb{12, 13, 14}))
-	return sum(map2(valid, func(g Game) int { return g.id }))
+	return sum(transform(valid, func(g Game) int { return g.id }))
 }
 
 func minCubes(game Game) Rgb {
@@ -61,7 +61,7 @@ func minCubes(game Game) Rgb {
 
 func minCubesProduct(r io.Reader) int {
 	games := parseLines(r, parseGame)
-	products := map2(games, compose(compose(minCubes, func(rgb Rgb) []int {
+	products := transform(games, compose(compose(minCubes, func(rgb Rgb) []int {
 		return []int{rgb.r, rgb.g, rgb.b}
 	}), product))
 	return sum(products)

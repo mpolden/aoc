@@ -2,29 +2,26 @@ package aoc23
 
 import (
 	"io"
-	"regexp"
 	"strings"
 	"testing"
 )
 
 type Card struct {
 	id      int
-	winners Set[int]
+	winners *Set[int]
 	got     []int
 }
 
 func parseCard(s string) Card {
-	re := regexp.MustCompile(": | \\| ")
-	parts := re.Split(s, -1)
+	parts := strings.FieldsFunc(s, func(r rune) bool { return r == ':' || r == '|' })
 	id := requireInt(strings.Fields(parts[0])[1])
-	got := map2(strings.Fields(parts[2]), requireInt)
-	winners := Set[int]{}
-	winners.AddAll(map2(strings.Fields(parts[1]), requireInt))
+	winners := NewSet(transform(strings.Fields(parts[1]), requireInt))
+	got := transform(strings.Fields(parts[2]), requireInt)
 	return Card{id, winners, got}
 }
 
 func countWinners(card Card) int {
-	return frequency(card.got, func(g int) bool { return card.winners.Contains(g) })
+	return quantify(card.got, func(g int) bool { return card.winners.Contains(g) })
 }
 
 func cardPoints(r io.Reader) int {

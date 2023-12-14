@@ -83,7 +83,7 @@ func findNumber(r io.Reader, consumer func(int, []Point, [][]rune)) {
 func sumPartNumbers(r io.Reader) int {
 	sum := 0
 	findNumber(r, func(n int, points []Point, grid [][]rune) {
-		if anyMatch(points, partial(nearSymbol, grid)) {
+		if some(points, partial(nearSymbol, grid)) {
 			sum += n
 		}
 	})

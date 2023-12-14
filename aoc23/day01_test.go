@@ -28,7 +28,7 @@ func findDigits(text string, parseWords bool) []int {
 
 func sumCalibrations(r io.Reader, parseWords bool) int {
 	values := parseLines(r, func(s string) []int { return findDigits(s, parseWords) })
-	return sum(map2(values, func(ints []int) int { return (ints[0] * 10) + ints[len(ints)-1] }))
+	return sum(transform(values, func(ints []int) int { return (ints[0] * 10) + ints[len(ints)-1] }))
 }
 
 func TestDay01(t *testing.T) {
