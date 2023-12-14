@@ -10,6 +10,7 @@ import (
 type Card struct {
 	winning []int
 	numbers []int
+	matches int
 }
 
 func parseCard(s string) Card {
@@ -17,14 +18,18 @@ func parseCard(s string) Card {
 	winning := transform(strings.Fields(parts[1]), requireInt)
 	slices.Sort(winning)
 	numbers := transform(strings.Fields(parts[2]), requireInt)
-	return Card{winning, numbers}
+	return Card{winning, numbers, -1}
 }
 
 func (c *Card) winners() int {
-	return quantify(c.numbers, func(n int) bool {
-		_, found := slices.BinarySearch(c.winning, n)
-		return found
-	})
+	if c.matches < 0 {
+		c.matches = quantify(c.numbers, func(n int) bool {
+			_, found := slices.BinarySearch(c.winning, n)
+			return found
+		})
+	}
+	return c.matches
+
 }
 
 func cardPoints(r io.Reader) int {
@@ -41,8 +46,8 @@ func cardPoints(r io.Reader) int {
 
 func countCards(cards []Card) int {
 	sum := 0
-	for i, card := range cards {
-		winners := card.winners()
+	for i := range cards {
+		winners := cards[i].winners()
 		next := i + 1
 		sum += 1 + countCards(cards[next:next+winners])
 	}
