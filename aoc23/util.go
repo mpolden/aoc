@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"io"
+	"math"
 	"os"
 	"strconv"
 	"strings"
@@ -21,6 +22,16 @@ func (s *Set[V]) Add(v V) bool {
 		s.set[v] = true
 	}
 	return !ok
+}
+
+func (s *Set[V]) AddAll(vs []V) bool {
+	changed := false
+	for _, v := range vs {
+		if s.Add(v) {
+			changed = true
+		}
+	}
+	return changed
 }
 
 func (s *Set[V]) Contains(v V) bool {
@@ -112,6 +123,8 @@ func add(a, b int) int { return a + b }
 
 func mul(a, b int) int { return a * b }
 
+func pow(a, b int) int { return int(math.Pow(float64(a), float64(b))) }
+
 func reduce[V any](values []V, f func(a, b V) V, initial V) V {
 	acc := initial
 	for _, v := range values {
@@ -138,7 +151,15 @@ func filter[V any](values []V, pred func(v V) bool) []V {
 	return filtered
 }
 
-func frequency[V any](values []V, pred func(v V) bool) int { return len(filter(values, pred)) }
+func frequency[V any](values []V, pred func(v V) bool) int {
+	n := 0
+	for _, v := range values {
+		if pred(v) {
+			n++
+		}
+	}
+	return n
+}
 
 func anyMatch[V any](values []V, pred func(v V) bool) bool { return frequency(values, pred) > 0 }
 
