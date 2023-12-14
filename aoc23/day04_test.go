@@ -8,23 +8,21 @@ import (
 )
 
 type Card struct {
-	id      int
-	winners []int
-	got     []int
+	winning []int
+	numbers []int
 }
 
 func parseCard(s string) Card {
 	parts := strings.FieldsFunc(s, func(r rune) bool { return r == ':' || r == '|' })
-	id := requireInt(strings.Fields(parts[0])[1])
-	winners := transform(strings.Fields(parts[1]), requireInt)
-	slices.Sort(winners)
-	got := transform(strings.Fields(parts[2]), requireInt)
-	return Card{id, winners, got}
+	winning := transform(strings.Fields(parts[1]), requireInt)
+	slices.Sort(winning)
+	numbers := transform(strings.Fields(parts[2]), requireInt)
+	return Card{winning, numbers}
 }
 
-func countWinners(card Card) int {
-	return quantify(card.got, func(n int) bool {
-		_, found := slices.BinarySearch(card.winners, n)
+func (c *Card) winners() int {
+	return quantify(c.numbers, func(n int) bool {
+		_, found := slices.BinarySearch(c.winning, n)
 		return found
 	})
 }
@@ -33,7 +31,7 @@ func cardPoints(r io.Reader) int {
 	score := 0
 	cards := parseLines(r, parseCard)
 	for _, card := range cards {
-		winners := countWinners(card)
+		winners := card.winners()
 		if winners > 0 {
 			score += pow(2, winners-1)
 		}
@@ -44,7 +42,7 @@ func cardPoints(r io.Reader) int {
 func countCards(cards []Card) int {
 	sum := 0
 	for i, card := range cards {
-		winners := countWinners(card)
+		winners := card.winners()
 		next := i + 1
 		sum += 1 + countCards(cards[next:next+winners])
 	}
