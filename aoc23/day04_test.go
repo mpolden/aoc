@@ -2,26 +2,31 @@ package aoc23
 
 import (
 	"io"
+	"slices"
 	"strings"
 	"testing"
 )
 
 type Card struct {
 	id      int
-	winners *Set[int]
+	winners []int
 	got     []int
 }
 
 func parseCard(s string) Card {
 	parts := strings.FieldsFunc(s, func(r rune) bool { return r == ':' || r == '|' })
 	id := requireInt(strings.Fields(parts[0])[1])
-	winners := NewSet(transform(strings.Fields(parts[1]), requireInt))
+	winners := transform(strings.Fields(parts[1]), requireInt)
+	slices.Sort(winners)
 	got := transform(strings.Fields(parts[2]), requireInt)
 	return Card{id, winners, got}
 }
 
 func countWinners(card Card) int {
-	return quantify(card.got, func(g int) bool { return card.winners.Contains(g) })
+	return quantify(card.got, func(n int) bool {
+		_, found := slices.BinarySearch(card.winners, n)
+		return found
+	})
 }
 
 func cardPoints(r io.Reader) int {
