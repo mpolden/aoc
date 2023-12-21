@@ -15,13 +15,13 @@ type Rgb struct{ r, g, b int }
 
 func parseGame(line string) Game {
 	parts := strings.Split(line, ": ")
-	id := requireInt(parts[0][5:])
+	id := atoi(parts[0][5:])
 	var cubes []Rgb
 	for _, p := range strings.Split(parts[1], "; ") {
 		c := Rgb{}
 		for _, p2 := range strings.Split(p, ", ") {
 			parts := strings.Split(p2, " ")
-			count := requireInt(parts[0])
+			count := atoi(parts[0])
 			color := parts[1]
 			switch color {
 			case "red":

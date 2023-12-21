@@ -15,9 +15,9 @@ type Card struct {
 
 func parseCard(s string) Card {
 	parts := strings.FieldsFunc(s, func(r rune) bool { return r == ':' || r == '|' })
-	winning := transform(strings.Fields(parts[1]), requireInt)
+	winning := transform(strings.Fields(parts[1]), atoi)
 	slices.Sort(winning)
-	numbers := transform(strings.Fields(parts[2]), requireInt)
+	numbers := transform(strings.Fields(parts[2]), atoi)
 	return Card{winning, numbers, -1}
 }
 

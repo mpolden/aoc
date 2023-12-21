@@ -72,7 +72,7 @@ func findNumber(r io.Reader, consumer func(int, []Point, [][]rune)) {
 				parsingNumber = false
 			}
 			if !parsingNumber && number != "" {
-				consumer(requireInt(number), points.Slice(), grid)
+				consumer(atoi(number), points.Slice(), grid)
 				points.Reset()
 				number = ""
 			}

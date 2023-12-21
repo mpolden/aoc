@@ -11,7 +11,7 @@ func findDigits(text string, parseWords bool) []int {
 	buf := ""
 	for _, c := range text {
 		if isDigit(c) {
-			n := requireInt(string(c))
+			n := atoi(string(c))
 			ints = append(ints, n)
 		} else if parseWords {
 			buf += string(c)

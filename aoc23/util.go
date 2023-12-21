@@ -50,7 +50,7 @@ func parseLines[T any](r io.Reader, parser func(line string) T) []T {
 	return values
 }
 
-func requireInt(s string) int {
+func atoi(s string) int {
 	n, err := strconv.Atoi(s)
 	if err != nil {
 		panic(err)
