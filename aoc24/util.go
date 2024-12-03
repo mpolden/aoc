@@ -31,7 +31,7 @@ func check(t *testing.T, want int, f func(r io.Reader) int, r io.Reader) {
 	assert(t, want, got)
 }
 
-func inputFile(day int) *os.File {
+func readFile(day int) *os.File {
 	f, err := os.Open(fmt.Sprintf("input/input%02d.txt", day))
 	if err != nil {
 		panic(err)
@@ -39,7 +39,7 @@ func inputFile(day int) *os.File {
 	return f
 }
 
-func inputString(s string) io.Reader { return strings.NewReader(strings.TrimSpace(s)) }
+func readString(s string) io.Reader { return strings.NewReader(strings.TrimSpace(s)) }
 
 // Parsing
 

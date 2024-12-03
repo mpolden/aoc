@@ -49,9 +49,9 @@ func parseMul(r io.Reader, enabledOnly bool) int {
 
 func TestDay03(t *testing.T) {
 	example1 := `xmul(2,4)%&mul[3,7]!@^do_not_mul(5,5)+mul(32,64]then(mul(11,8)mul(8,5))`
-	check(t, 161, partial(parseMul, false), inputString(example1))
-	check(t, 183669043, partial(parseMul, false), inputFile(3))
+	check(t, 161, partial(parseMul, false), readString(example1))
+	check(t, 183669043, partial(parseMul, false), readFile(3))
 	example2 := `xmul(2,4)&mul[3,7]!^don't()_mul(5,5)+mul(32,64](mul(11,8)undo()?mul(8,5))`
-	check(t, 48, partial(parseMul, true), inputString(example2))
-	check(t, 59097164, partial(parseMul, true), inputFile(3))
+	check(t, 48, partial(parseMul, true), readString(example2))
+	check(t, 59097164, partial(parseMul, true), readFile(3))
 }

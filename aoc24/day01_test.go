@@ -54,8 +54,8 @@ func TestDay01(t *testing.T) {
 3   9
 3   3
 `
-	check(t, 11, totalDistance, inputString(example))
-	check(t, 1765812, totalDistance, inputFile(1))
-	check(t, 31, similarityScore, inputString(example))
-	check(t, 20520794, similarityScore, inputFile(1))
+	check(t, 11, totalDistance, readString(example))
+	check(t, 1765812, totalDistance, readFile(1))
+	check(t, 31, similarityScore, readString(example))
+	check(t, 20520794, similarityScore, readFile(1))
 }

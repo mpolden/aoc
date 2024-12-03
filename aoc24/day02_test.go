@@ -57,8 +57,8 @@ func TestDay02(t *testing.T) {
 8 6 4 4 1
 1 3 6 7 9
 `
-	check(t, 2, partial(countSafeReports, false), inputString(example))
-	check(t, 564, partial(countSafeReports, false), inputFile(2))
-	check(t, 4, partial(countSafeReports, true), inputString(example))
-	check(t, 604, partial(countSafeReports, true), inputFile(2))
+	check(t, 2, partial(countSafeReports, false), readString(example))
+	check(t, 564, partial(countSafeReports, false), readFile(2))
+	check(t, 4, partial(countSafeReports, true), readString(example))
+	check(t, 604, partial(countSafeReports, true), readFile(2))
 }
