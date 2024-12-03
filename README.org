@@ -3,12 +3,13 @@
 Solutions to a few [[https://adventofcode.com/][Advent of Code]] puzzles.
 
 I usually get bored or time-constrained long before I can collect all stars.
-However, starting and subsequently failing to complete Advent of Code has become
-a yearly tradition.
+However, starting and subsequently rage quitting Advent of Code has become a
+yearly tradition.
 
 | Year |             Stars :star: | Language |
 |------+--------------------------+----------|
-| 2023 | :hourglass_flowing_sand: | Go       |
+| 2024 | :hourglass_flowing_sand: | Go       |
+| 2023 |                       10 | Go       |
 | 2022 |                       26 | Python   |
 | 2021 |                       22 | Python   |
 | 2020 |                       19 | Rust     |
