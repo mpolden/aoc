@@ -27,7 +27,7 @@ func run(f func(r io.Reader) int, r io.Reader) int {
 
 func check(t *testing.T, want int, f func(r io.Reader) int, r io.Reader) {
 	t.Helper()
-	got := f(r)
+	got := run(f, r)
 	assert(t, want, got)
 }
 
