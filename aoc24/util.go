@@ -74,6 +74,8 @@ func runes(s string) []rune { return []rune(s) }
 
 func isDigit(r rune) bool { return int(r) >= 48 && int(r) <= 57 }
 
+func numbers(s string) []int { return transform(strings.Fields(s), atoi) }
+
 // Functional
 
 func partial[V1, V2, R any](f func(V1, V2) R, frozenArg V2) func(V1) R {
@@ -144,6 +146,17 @@ func sum(ints []int) int { return reduce(ints, add, 0) }
 func abs(n int) int { return int(math.Abs(float64(n))) }
 
 // Collections
+
+func remove(slice []int, i int) []int {
+	copy := make([]int, 0, len(slice)-1)
+	for j := range slice {
+		if j == i {
+			continue
+		}
+		copy = append(copy, slice[j])
+	}
+	return copy
+}
 
 type Set[V comparable] struct{ set map[V]bool }
 
