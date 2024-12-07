@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"io"
+	"iter"
 	"math"
 	"os"
 	"strconv"
@@ -200,12 +201,14 @@ func (s *Set[V]) Contains(v V) bool {
 	return ok
 }
 
-func (s *Set[V]) Slice() []V {
-	values := make([]V, 0, len(s.set))
-	for v := range s.set {
-		values = append(values, v)
+func (s *Set[V]) All() iter.Seq[V] {
+	return func(yield func(V) bool) {
+		for v := range s.set {
+			if !yield(v) {
+				break
+			}
+		}
 	}
-	return values
 }
 
 func (s *Set[V]) Len() int { return len(s.set) }
