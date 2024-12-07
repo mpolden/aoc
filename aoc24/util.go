@@ -179,6 +179,11 @@ func (p Point) Step(direction Direction, n int) Point {
 	return next
 }
 
+type Pose struct {
+	position  Point
+	direction Direction
+}
+
 // Math
 
 func add(a, b int) int { return a + b }
