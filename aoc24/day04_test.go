@@ -5,40 +5,27 @@ import (
 	"testing"
 )
 
-type Direction int
-
-const (
-	topLeft Direction = iota
-	top
-	topRight
-	left
-	right
-	bottomLeft
-	bottom
-	bottomRight
-)
-
 func path(start Point, distance int, direction Direction, width, height int) []Point {
 	x, y := start.x, start.y
 	path := []Point{}
 	for d := 1; d <= distance; d++ {
 		var p Point
 		switch direction {
-		case topLeft:
+		case directionUpLeft:
 			p.x, p.y = x-d, y-d
-		case top:
+		case directionUp:
 			p.x, p.y = x, y-d
-		case topRight:
+		case directionUpRight:
 			p.x, p.y = x+d, y-d
-		case left:
+		case directionLeft:
 			p.x, p.y = x-d, y
-		case right:
+		case directionRight:
 			p.x, p.y = x+d, y
-		case bottomLeft:
+		case directionDownLeft:
 			p.x, p.y = x-d, y+d
-		case bottom:
+		case directionDown:
 			p.x, p.y = x, y+d
-		case bottomRight:
+		case directionDownRight:
 			p.x, p.y = x+d, y+d
 		default:
 			panic("invalid direction")
@@ -71,7 +58,7 @@ func countWords(r io.Reader, mas bool) int {
 			point := Point{x, y}
 			if !mas {
 				word := "XMAS"
-				for d := range bottomRight + 1 {
+				for d := range directionDownRight + 1 {
 					p := []Point{point}
 					p = append(p, path(point, len(word)-1, d, width, height)...)
 					if hasWord(p, word) {
@@ -81,14 +68,14 @@ func countWords(r io.Reader, mas bool) int {
 			} else if c == 'A' {
 				// Forward diagonal
 				word1, word2 := "MAS", "SAM"
-				p := path(point, 1, topLeft, width, height)
+				p := path(point, 1, directionUpLeft, width, height)
 				p = append(p, point)
-				p = append(p, path(point, 1, bottomRight, width, height)...)
+				p = append(p, path(point, 1, directionDownRight, width, height)...)
 				if hasWord(p, word1) || hasWord(p, word2) {
 					// Backward diagonal
-					p = path(point, 1, topRight, width, height)
+					p = path(point, 1, directionUpRight, width, height)
 					p = append(p, point)
-					p = append(p, path(point, 1, bottomLeft, width, height)...)
+					p = append(p, path(point, 1, directionDownLeft, width, height)...)
 					if hasWord(p, word1) || hasWord(p, word2) {
 						count++
 					}

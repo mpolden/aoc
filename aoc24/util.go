@@ -134,6 +134,19 @@ func none[V any](values []V, pred func(v V) bool) bool { return quantify(values,
 
 // Geometry
 
+type Direction int
+
+const (
+	directionUpLeft Direction = iota
+	directionUp
+	directionUpRight
+	directionLeft
+	directionRight
+	directionDownLeft
+	directionDown
+	directionDownRight
+)
+
 type Point struct{ x, y int }
 
 func (p Point) Within(w, h int) bool { return p.x >= 0 && p.x < w && p.y >= 0 && p.y < h }
