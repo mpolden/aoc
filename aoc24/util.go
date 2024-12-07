@@ -257,4 +257,4 @@ func (s *Set[V]) All() iter.Seq[V] {
 
 func (s *Set[V]) Len() int { return len(s.set) }
 
-func (s *Set[V]) Reset() { clear(s.set) }
+func (s *Set[V]) Clear() { clear(s.set) }
