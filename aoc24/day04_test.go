@@ -5,8 +5,6 @@ import (
 	"testing"
 )
 
-type Point struct{ x, y int }
-
 type Direction int
 
 const (
@@ -20,7 +18,7 @@ const (
 	bottomRight
 )
 
-func path(start Point, distance int, direction Direction, height, width int) []Point {
+func path(start Point, distance int, direction Direction, width, height int) []Point {
 	x, y := start.x, start.y
 	path := []Point{}
 	for d := 1; d <= distance; d++ {
@@ -45,7 +43,7 @@ func path(start Point, distance int, direction Direction, height, width int) []P
 		default:
 			panic("invalid direction")
 		}
-		if p.x < 0 || p.y < 0 || p.x >= width || p.y >= height {
+		if !p.Within(width, height) {
 			break
 		}
 		path = append(path, p)

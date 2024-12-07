@@ -131,6 +131,14 @@ func all[V any](values []V, pred func(v V) bool) bool {
 
 func none[V any](values []V, pred func(v V) bool) bool { return quantify(values, pred) == 0 }
 
+// Geometry
+
+type Point struct{ x, y int }
+
+func (p Point) Within(w, h int) bool { return p.x >= 0 && p.x < w && p.y >= 0 && p.y < h }
+
+func (p1 Point) Equal(p2 Point) bool { return p1.x == p2.x && p1.y == p2.y }
+
 // Math
 
 func add(a, b int) int { return a + b }
