@@ -65,12 +65,13 @@ func countObstaclePositions(r io.Reader) int {
 	width, height := len(grid[0]), len(grid)
 	// Try placing an obstacle at each visited position, excluding original position
 	count := 0
+	var visited Set[Pose]
 	for obstacle := range path.All() {
 		if obstacle.Equal(origin) {
 			continue
 		}
+		visited.Clear()
 		direction := directionUp
-		visited := &Set[Pose]{}
 		guard := origin
 		for {
 			next := guard.Step(direction, 1)
@@ -80,7 +81,7 @@ func countObstaclePositions(r io.Reader) int {
 			if grid[next.y][next.x] == '#' || next.Equal(obstacle) {
 				pose := Pose{guard, direction}
 				if visited.Contains(pose) {
-					count++ // Reach same point and direction twice
+					count++ // Reached same point and direction twice
 					break
 				} else {
 					visited.Add(pose)
