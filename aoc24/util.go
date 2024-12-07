@@ -153,6 +153,32 @@ func (p Point) Within(w, h int) bool { return p.x >= 0 && p.x < w && p.y >= 0 &&
 
 func (p1 Point) Equal(p2 Point) bool { return p1.x == p2.x && p1.y == p2.y }
 
+func (p Point) Step(direction Direction, n int) Point {
+	x, y := p.x, p.y
+	var next Point
+	switch direction {
+	case directionUpLeft:
+		next.x, next.y = x-n, y-n
+	case directionUp:
+		next.x, next.y = x, y-n
+	case directionUpRight:
+		next.x, next.y = x+n, y-n
+	case directionLeft:
+		next.x, next.y = x-n, y
+	case directionRight:
+		next.x, next.y = x+n, y
+	case directionDownLeft:
+		next.x, next.y = x-n, y+n
+	case directionDown:
+		next.x, next.y = x, y+n
+	case directionDownRight:
+		next.x, next.y = x+n, y+n
+	default:
+		panic("invalid direction")
+	}
+	return next
+}
+
 // Math
 
 func add(a, b int) int { return a + b }

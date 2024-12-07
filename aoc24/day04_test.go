@@ -6,30 +6,9 @@ import (
 )
 
 func path(start Point, distance int, direction Direction, width, height int) []Point {
-	x, y := start.x, start.y
 	path := []Point{}
-	for d := 1; d <= distance; d++ {
-		var p Point
-		switch direction {
-		case directionUpLeft:
-			p.x, p.y = x-d, y-d
-		case directionUp:
-			p.x, p.y = x, y-d
-		case directionUpRight:
-			p.x, p.y = x+d, y-d
-		case directionLeft:
-			p.x, p.y = x-d, y
-		case directionRight:
-			p.x, p.y = x+d, y
-		case directionDownLeft:
-			p.x, p.y = x-d, y+d
-		case directionDown:
-			p.x, p.y = x, y+d
-		case directionDownRight:
-			p.x, p.y = x+d, y+d
-		default:
-			panic("invalid direction")
-		}
+	for n := 1; n <= distance; n++ {
+		p := start.Step(direction, n)
 		if !p.Within(width, height) {
 			break
 		}
