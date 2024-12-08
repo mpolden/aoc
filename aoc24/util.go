@@ -12,21 +12,21 @@ import (
 	"testing"
 )
 
-func assert(t *testing.T, want, got int) {
+func assert[V comparable](t *testing.T, want, got V) {
 	t.Helper()
 	if got != want {
-		t.Errorf("got %d, want %d", got, want)
+		t.Errorf("got %v, want %v", got, want)
 	}
 }
 
-func run(f func(r io.Reader) int, r io.Reader) int {
+func run[V any](f func(r io.Reader) V, r io.Reader) V {
 	if rc, ok := r.(io.ReadCloser); ok {
 		defer rc.Close()
 	}
 	return f(r)
 }
 
-func check(t *testing.T, want int, f func(r io.Reader) int, r io.Reader) {
+func check[V comparable](t *testing.T, want V, f func(r io.Reader) V, r io.Reader) {
 	t.Helper()
 	got := run(f, r)
 	assert(t, want, got)
@@ -65,6 +65,14 @@ func parseLines[T any](r io.Reader, parser func(line string) T) []T {
 
 func atoi(s string) int {
 	n, err := strconv.Atoi(s)
+	if err != nil {
+		panic(err)
+	}
+	return n
+}
+
+func atoi64(s string) int64 {
+	n, err := strconv.ParseInt(s, 10, 64)
 	if err != nil {
 		panic(err)
 	}
