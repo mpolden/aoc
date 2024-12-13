@@ -40,16 +40,14 @@ func findPath(start Point, grid [][]rune) *Set[Point] {
 }
 
 func findGuard(grid [][]rune) Point {
-	var guard Point
 	for y, row := range grid {
 		for x, c := range row {
 			if c == '^' {
-				guard = Point{x, y}
-				break
+				return Point{x, y}
 			}
 		}
 	}
-	return guard
+	panic("no guard found")
 }
 
 func countPositions(r io.Reader) int {
