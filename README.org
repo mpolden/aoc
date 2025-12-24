@@ -8,7 +8,8 @@ yearly tradition.
 
 | Year |             Stars :star: | Language |
 |------+--------------------------+----------|
-| 2024 | :hourglass_flowing_sand: | Go       |
+| 2025 | :hourglass_flowing_sand: | Go       |
+| 2024 |                       18 | Go       |
 | 2023 |                       10 | Go       |
 | 2022 |                       26 | Python   |
 | 2021 |                       22 | Python   |
