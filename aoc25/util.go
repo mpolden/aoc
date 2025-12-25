@@ -85,6 +85,22 @@ func isDigit(r rune) bool { return int(r) >= 48 && int(r) <= 57 }
 
 func numbers(s string) []int { return transform(strings.Fields(s), atoi) }
 
+func digits(n int) []int {
+	if n < 0 {
+		n = -n
+	}
+	width := 0
+	for i := n; i > 0; width++ {
+		i /= 10
+	}
+	digits := make([]int, width)
+	for i := width - 1; i >= 0; i-- {
+		digits[i] = n % 10
+		n /= 10
+	}
+	return digits
+}
+
 // Functional
 
 func partial[V1, V2, R any](f func(V1, V2) R, frozenArg V2) func(V1) R {
@@ -221,6 +237,27 @@ func remove(slice []int, i int) []int {
 		copy = append(copy, slice[j])
 	}
 	return copy
+}
+
+func partition[T any](slice []T, size int) iter.Seq[[]T] {
+	return func(yield func([]T) bool) {
+		if size <= 0 {
+			return
+		}
+		part := make([]T, 0, size)
+		for _, v := range slice {
+			part = append(part, v)
+			if len(part) == size {
+				if !yield(part) {
+					return
+				}
+				part = make([]T, 0, size)
+			}
+		}
+		if len(part) > 0 {
+			yield(part)
+		}
+	}
 }
 
 type Set[V comparable] struct{ set map[V]bool }
