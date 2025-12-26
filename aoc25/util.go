@@ -85,6 +85,8 @@ func isDigit(r rune) bool { return int(r) >= 48 && int(r) <= 57 }
 
 func numbers(s string) []int { return transform(strings.Fields(s), atoi) }
 
+func digit(r rune) int { return int(r) - 48 }
+
 func digits(n int) []int {
 	if n < 0 {
 		n = -n
