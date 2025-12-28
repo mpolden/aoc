@@ -47,22 +47,17 @@ func sumInvalid(r io.Reader, atLeastTwice bool) int64 {
 			}
 			for _, size := range groupSizes {
 				var (
-					seen        int
-					first       []int
-					consecutive = true
+					first       = digits[:size]
+					consecutive = len(digits) > size
 				)
-				for part := range partition(digits, size) {
-					seen++
-					if seen == 1 {
-						first = part
-						continue
-					}
-					if !slices.Equal(first, part) {
+				for i := size; i < len(digits); i += size {
+					group := digits[i : i+size]
+					if !slices.Equal(first, group) {
 						consecutive = false
 						break
 					}
 				}
-				if consecutive && seen > 1 {
+				if consecutive {
 					sum += int64(n)
 					break
 				}
