@@ -42,7 +42,7 @@ func TestDay03(t *testing.T) {
 818181911112111
 `
 	check(t, 357, partial(joltage, 2), readString(example))
-	check(t, 17343, partial(joltage, 2), readFile(3))
+	check(t, 17343, partial(joltage, 2), readInput(3))
 	check(t, 3121910778619, partial(joltage, 12), readString(example))
-	check(t, 172664333119298, partial(joltage, 12), readFile(3))
+	check(t, 172664333119298, partial(joltage, 12), readInput(3))
 }

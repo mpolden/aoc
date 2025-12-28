@@ -53,7 +53,7 @@ R14
 L82
 `
 	check(t, 3, partial(findPassword, false), readString(example))
-	check(t, 1021, partial(findPassword, false), readFile(1))
+	check(t, 1021, partial(findPassword, false), readInput(1))
 	check(t, 6, partial(findPassword, true), readString(example))
-	check(t, 5933, partial(findPassword, true), readFile(1))
+	check(t, 5933, partial(findPassword, true), readInput(1))
 }

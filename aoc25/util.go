@@ -32,7 +32,7 @@ func check[V comparable](t *testing.T, want V, f func(r io.Reader) V, r io.Reade
 	assert(t, want, got)
 }
 
-func readFile(day int) *os.File {
+func readInput(day int) *os.File {
 	f, err := os.Open(fmt.Sprintf("input/input%02d.txt", day))
 	if err != nil {
 		panic(err)

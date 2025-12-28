@@ -70,7 +70,7 @@ func TestDay04(t *testing.T) {
 @.@.@@@.@.
 `
 	check(t, 13, partial(processRolls, false), readString(example))
-	check(t, 1433, partial(processRolls, false), readFile(4))
+	check(t, 1433, partial(processRolls, false), readInput(4))
 	check(t, 43, partial(processRolls, true), readString(example))
-	check(t, 8616, partial(processRolls, true), readFile(4))
+	check(t, 8616, partial(processRolls, true), readInput(4))
 }

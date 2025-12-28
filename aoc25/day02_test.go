@@ -74,7 +74,7 @@ func TestDay02(t *testing.T) {
 824824821-824824827,2121212118-2121212124
 `
 	check(t, 1227775554, partial(sumInvalid, false), readString(example))
-	check(t, 30608905813, partial(sumInvalid, false), readFile(2))
+	check(t, 30608905813, partial(sumInvalid, false), readInput(2))
 	check(t, 4174379265, partial(sumInvalid, true), readString(example))
-	check(t, 31898925685, partial(sumInvalid, true), readFile(2))
+	check(t, 31898925685, partial(sumInvalid, true), readInput(2))
 }
