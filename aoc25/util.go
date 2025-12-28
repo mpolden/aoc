@@ -103,6 +103,18 @@ func digits(n int) []int {
 	return digits
 }
 
+type Range struct{ start, end int }
+
+func (r Range) Contains(n int) bool { return n >= r.start && n <= r.end }
+
+func rangeOf(s string) Range {
+	startEnd := strings.Split(s, "-")
+	if len(startEnd) != 2 {
+		panic("invalid range")
+	}
+	return Range{start: atoi(startEnd[0]), end: atoi(startEnd[1])}
+}
+
 // Functional
 
 func partial[V1, V2, R any](f func(V1, V2) R, frozenArg V2) func(V1) R {

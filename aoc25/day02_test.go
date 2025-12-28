@@ -8,11 +8,6 @@ import (
 	"testing"
 )
 
-type Range struct {
-	start int
-	end   int
-}
-
 func parseRanges(r io.Reader) []Range {
 	var ranges []Range
 	b, _ := io.ReadAll(r)
@@ -22,10 +17,7 @@ func parseRanges(r io.Reader) []Range {
 		if s == "" {
 			continue
 		}
-		startEnd := strings.Split(s, "-")
-		start := atoi(startEnd[0])
-		end := atoi(startEnd[1])
-		ranges = append(ranges, Range{start: start, end: end})
+		ranges = append(ranges, rangeOf(s))
 	}
 	return ranges
 }
