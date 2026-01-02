@@ -71,14 +71,6 @@ func atoi(s string) int {
 	return n
 }
 
-func atoi64(s string) int64 {
-	n, err := strconv.ParseInt(s, 10, 64)
-	if err != nil {
-		panic(err)
-	}
-	return n
-}
-
 func runes(s string) []rune { return []rune(s) }
 
 func isDigit(r rune) bool { return int(r) >= 48 && int(r) <= 57 }
@@ -103,37 +95,12 @@ func digits(n int) []int {
 	return digits
 }
 
-type Range struct{ start, end int }
-
-func (r Range) Contains(n int) bool { return n >= r.start && n <= r.end }
-
-func rangeOf(s string) Range {
-	startEnd := strings.Split(s, "-")
-	if len(startEnd) != 2 {
-		panic("invalid range")
-	}
-	return Range{start: atoi(startEnd[0]), end: atoi(startEnd[1])}
-}
-
 // Functional
 
 func partial[V1, V2, R any](f func(V1, V2) R, frozenArg V2) func(V1) R {
 	return func(v1 V1) R { return f(v1, frozenArg) }
 }
 
-func compose[V1, R1, R2 any](f1 func(V1) R1, f2 func(R1) R2) func(V1) R2 {
-	return func(v V1) R2 { return f2(f1(v)) }
-}
-
-func reduce[V any](values []V, f func(a, b V) V, initial V) V {
-	acc := initial
-	for _, v := range values {
-		acc = f(acc, v)
-	}
-	return acc
-}
-
-// map is reserved :(
 func transform[V any, R any](values []V, f func(v V) R) []R {
 	result := make([]R, len(values))
 	for i, v := range values {
@@ -141,34 +108,6 @@ func transform[V any, R any](values []V, f func(v V) R) []R {
 	}
 	return result
 }
-
-func filter[V any](values []V, pred func(v V) bool) []V {
-	var result []V
-	for _, v := range values {
-		if pred(v) {
-			result = append(result, v)
-		}
-	}
-	return result
-}
-
-func quantify[V any](values []V, pred func(v V) bool) int {
-	n := 0
-	for _, v := range values {
-		if pred(v) {
-			n++
-		}
-	}
-	return n
-}
-
-func some[V any](values []V, pred func(v V) bool) bool { return quantify(values, pred) > 0 }
-
-func all[V any](values []V, pred func(v V) bool) bool {
-	return quantify(values, pred) == len(values)
-}
-
-func none[V any](values []V, pred func(v V) bool) bool { return quantify(values, pred) == 0 }
 
 // Geometry
 
@@ -221,58 +160,25 @@ func (p Point) Step(direction Direction, n int) Point {
 	return next
 }
 
-type Pose struct {
-	position  Point
-	direction Direction
-}
-
 // Math
-
-func add(a, b int) int { return a + b }
-
-func mul(a, b int) int { return a * b }
 
 func pow(a, b int) int { return int(math.Pow(float64(a), float64(b))) }
 
-func product(ints []int) int { return reduce(ints, mul, 1) }
-
-func sum(ints []int) int { return reduce(ints, add, 0) }
-
 func abs(n int) int { return int(math.Abs(float64(n))) }
 
+type Range struct{ start, end int }
+
+func (r Range) Contains(n int) bool { return n >= r.start && n <= r.end }
+
+func rangeOf(s string) Range {
+	startEnd := strings.Split(s, "-")
+	if len(startEnd) != 2 {
+		panic("invalid range")
+	}
+	return Range{start: atoi(startEnd[0]), end: atoi(startEnd[1])}
+}
+
 // Collections
-
-func remove(slice []int, i int) []int {
-	copy := make([]int, 0, len(slice)-1)
-	for j := range slice {
-		if j == i {
-			continue
-		}
-		copy = append(copy, slice[j])
-	}
-	return copy
-}
-
-func partition[T any](slice []T, size int) iter.Seq[[]T] {
-	return func(yield func([]T) bool) {
-		if size <= 0 {
-			return
-		}
-		part := make([]T, 0, size)
-		for _, v := range slice {
-			part = append(part, v)
-			if len(part) == size {
-				if !yield(part) {
-					return
-				}
-				part = make([]T, 0, size)
-			}
-		}
-		if len(part) > 0 {
-			yield(part)
-		}
-	}
-}
 
 type Set[V comparable] struct{ set map[V]bool }
 
